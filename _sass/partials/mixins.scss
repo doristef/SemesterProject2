@@ -1,0 +1,21 @@
+//** MIXINS **//
+
+//** CHANGE PX TO REM **//
+@mixin fontRem($pixel : 12px) { // Default value, to always get results
+    @if unit($pixel) == "px" and not unitless($pixel) {
+        $pixel: ($pixel / ($pixel * 0 + 1))/16+rem; // Formula for stripping "px" from hugogiraudel.com
+    }
+        font-size: $pixel;  
+}
+
+//** BORDER-RADIUS **//
+@mixin border-radius($radius : 5px) { // Default value, to always get results
+    border-radius: $radius;
+    -webkit-border-radius: $radius; 
+    -moz-border-radius: $radius;   
+}
+
+//** HEX to RGBA, Linear Gradient **//
+@function linearGradient($direction, $c1, $c2, $o1: 0.1, $o2: 0.3) {
+    @return linear-gradient($direction, rgba($c1, $o1), rgba($c2, $o2));
+}

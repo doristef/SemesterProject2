@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400|Playball');
+
+//*** FONT - IMPORT ***/
+
+$bodyFont : 'Lato',sans-serif;
+$bodyWeight : 300;
+$headingFont : 'Playball', serif;
+$navFont : 'Playball', serif;
+$navWeight : 500;
+$navStyle : none;
+
+
+//*** VARIABLES ***/
+
+//** COLORS **//
+$black : #000000;
+$white : #ffffff;
+$gray : #e9e9e9;
+$gray1 : #bcbcbc;
+$gray2 : #665c5a;
+$gray3 : #7f7f7f;
+$darkGray2 : #4f4f4f;
+$darkGray : #494949;
+$skinColor : #ffebd8;
+$color1 : #2A81A5;
+$color2 : #22B5B9;
+$color3 : #FF6B4C;
+
+//** FONT SIZES **//
+$headings: (
+    h1 : 41px,
+    h2 : 37px,
+    h3 : 34px,
+    h4 : 31px,
+    h5 : 28px );
+$navText : 37px;
+$bodyFontSize : 17px;
+
+//** MARGIN - PADDING **//
+$topMargin: 15px;
+$bottomMargin: 25px;
+$topPad: 10px;
+$bottomPad: 15px;
+
+
+//** SIZES **//
+$footerHeight: 120px;
+$navHeight: 80px;
+$smallScreen: 767px;
+$medScreen: 1024px;

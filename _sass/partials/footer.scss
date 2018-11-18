@@ -1,0 +1,35 @@
+/* FOOTER */
+
+.footer {
+    width: 100%;
+    height: $footerHeight - 10;
+    line-height: $footerHeight;
+    background-color: $color2;
+    color: $darkGray;
+    font-weight: bold;
+    
+    &__copy {
+        display: block;
+        width: 100%;
+        height: 50px;
+        background-color: $color2;
+        font-size: 14px;
+        line-height: 50px;
+        text-align: center;
+    }
+
+    &__link {
+        color: $darkGray !important;
+
+        &:active {
+            color: $darkGray !important;
+        }
+        &:visisted {
+            color: $darkGray !important;
+        }
+        &:hover {
+            color: $color3 !important;
+        }
+    }  
+
+}

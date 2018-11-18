@@ -1,0 +1,51 @@
+//** GENERAL TAGS **//
+
+body {
+    font-family: $bodyFont;
+    font-weight: $bodyWeight !important;
+    font-style: none;
+    font-size: $bodyFontSize;
+    color: $darkGray;
+}
+
+//** HEADINGS **//
+
+@each $heading, $size in $headings {
+    #{$heading}, .#{$heading} {
+        @include fontRem( $size );
+        font-family: $headingFont;
+        color: $white;
+        font-weight: bold;
+
+    }
+}
+
+//** LINK **//
+a {
+    &:link { color: $white; }
+    
+    &:visited {
+        color: $white;
+        text-decoration: none;
+    }
+    
+    &:active {
+        color: darken($white, 10%);
+        text-decoration: underline;
+    }
+    
+    &:hover {
+        color: $color2;
+    }
+}
+.btn {
+    &-danger {
+        color: $darkGray !important;
+        background-color: $darkGray2 !important;
+        border: 1px solid $color2;
+    }
+    &-danger:hover {
+        border: 1px solid $color2 !important;
+        background-color: darken($darkGray2, 10%) !important;
+    }
+}

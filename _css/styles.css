@@ -1,0 +1,222 @@
+/*** IMPORT ***/
+@import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400|Playball");
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 300 !important;
+  font-style: none;
+  font-size: 17px;
+  color: #494949; }
+
+h1, .h1 {
+  font-size: 2.5625rem;
+  font-family: "Playball", serif;
+  color: #ffffff;
+  font-weight: bold; }
+
+h2, .h2 {
+  font-size: 2.3125rem;
+  font-family: "Playball", serif;
+  color: #ffffff;
+  font-weight: bold; }
+
+h3, .h3 {
+  font-size: 2.125rem;
+  font-family: "Playball", serif;
+  color: #ffffff;
+  font-weight: bold; }
+
+h4, .h4 {
+  font-size: 1.9375rem;
+  font-family: "Playball", serif;
+  color: #ffffff;
+  font-weight: bold; }
+
+h5, .h5 {
+  font-size: 1.75rem;
+  font-family: "Playball", serif;
+  color: #ffffff;
+  font-weight: bold; }
+
+a:link {
+  color: #ffffff; }
+a:visited {
+  color: #ffffff;
+  text-decoration: none; }
+a:active {
+  color: #e6e6e6;
+  text-decoration: underline; }
+a:hover {
+  color: #22B5B9; }
+
+.btn-danger {
+  color: #494949 !important;
+  background-color: #4f4f4f !important;
+  border: 1px solid #22B5B9; }
+.btn-danger:hover {
+  border: 1px solid #22B5B9 !important;
+  background-color: #363636 !important; }
+
+/* FOOTER */
+.footer {
+  width: 100%;
+  height: 110px;
+  line-height: 120px;
+  background-color: #22B5B9;
+  color: #494949;
+  font-weight: bold; }
+  .footer__copy {
+    display: block;
+    width: 100%;
+    height: 50px;
+    background-color: #22B5B9;
+    font-size: 14px;
+    line-height: 50px;
+    text-align: center; }
+  .footer__link {
+    color: #494949 !important; }
+    .footer__link:active {
+      color: #494949 !important; }
+    .footer__link:visisted {
+      color: #494949 !important; }
+    .footer__link:hover {
+      color: #FF6B4C !important; }
+
+.header {
+  width: 100%;
+  height: 400px; }
+  .header--main {
+    position: relative;
+    background: url("../_img/eberhard-grossgasteiger-1128663-unsplash.jpg") no-repeat center right;
+    background-size: cover; }
+    @media screen and (min-width: 767px) {
+      .header--main {
+        background: url("../_img/eberhard-grossgasteiger-1128663-unsplash.jpg") no-repeat center center !important;
+        background-size: cover !important; } }
+
+.nav-item {
+  margin-right: 1rem; }
+
+.navbar {
+  background: #494949 !important;
+  color: #ffffff !important;
+  font-family: "Playball", serif;
+  font-size: 37px;
+  font-weight: 500 !important;
+  font-style: none;
+  min-height: 80px;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-bottom: 3px solid #4f4f4f;
+  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.2); }
+  .navbar a:link {
+    color: #ffffff !important; }
+  .navbar a:visited {
+    color: #ffffff !important;
+    text-decoration: none; }
+  .navbar a:active {
+    color: #e6e6e6 !important;
+    text-decoration: underline; }
+  .navbar a:hover {
+    color: #22B5B9 !important; }
+
+.nav-link::after {
+  padding-left: 1rem;
+  content: ' '; }
+
+/****** OVERFLOW SEARCH ***********
+        * {
+            outline: 1px solid red;
+            opacity: 1 !important; visibility: visible !important;
+        }
+****** / OVERFLOW SEARCH ***********/
+.hr {
+  width: 100%;
+  height: 3px;
+  background-color: #22B5B9; }
+
+.card {
+  background-color: #757575 !important;
+  color: #ffffff !important;
+  font-weight: bold; }
+  @media screen and (min-width: 767px) {
+    .card {
+      min-height: 750px !important; } }
+  .card a:link {
+    color: #ffffff !important; }
+  .card a:visited {
+    color: #ffffff !important;
+    text-decoration: none; }
+  .card a:active {
+    color: #e6e6e6 !important;
+    text-decoration: underline; }
+  .card a:hover {
+    color: #22B5B9 !important; }
+
+.hide--big {
+  display: none !important; }
+  @media screen and (max-width: 767px) {
+    .hide--big {
+      display: block !important; } }
+
+.row .fixed {
+  width: 98%;
+  margin: 0 auto; }
+
+.background--lines {
+  background: repeating-linear-gradient(90deg, #494949, #494949 10px, #4f4f4f 10px, #4f4f4f 20px); }
+.background--lines__blue {
+  background: repeating-linear-gradient(45deg, #22B5B9, #22B5B9 10px, #21b1b5 10px, #20adb0 20px); }
+.background--paper {
+  background: #4f4f4f; }
+
+.divider--lines {
+  display: block;
+  content: ' ';
+  height: 0.5rem;
+  margin: 1.25rem 0; }
+  .divider--lines__orange {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    background: linear-gradient(to bottom, #FF6B4C, #ffaa99); }
+  .divider--lines__green {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    background: linear-gradient(to bottom, #FF6B4C, #ffeae5); }
+  @media screen and (max-width: 767px) {
+    .divider--lines {
+      margin: 2rem 0; } }
+
+.border--sides {
+  border-left: 1px solid #22B5B9;
+  border-right: 1px solid #22B5B9;
+  outline: 2px solid #665c5a;
+  box-shadow: 0 0 0 4px #7f7f7f; }
+.border--sides:before {
+  border-left: 1px solid #665c5a;
+  border-right: 1px solid #665c5a; }
+.border--sides:after {
+  border-left: 1px solid #e9e9e9;
+  border-right: 1px solid #e9e9e9; }
+.border--bottom {
+  border-bottom: 1px solid #126163; }
+.border--top {
+  border-top: 1px solid #126163; }
+
+.margin__top {
+  margin-top: 15px; }
+  .margin__top--5 {
+    margin-top: 20px; }
+.margin__bottom {
+  margin-bottom: 25px; }
+
+.padding__top {
+  padding-top: 10px; }
+  .padding__top--5 {
+    padding-top: 15px; }
+.padding__bottom {
+  padding-bottom: 15px; }
+
+/*# sourceMappingURL=styles.css.map */
