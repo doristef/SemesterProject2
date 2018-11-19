@@ -13,6 +13,20 @@
 ****** / OVERFLOW SEARCH ***********/
 
 //** CARDS **//
+.characterTitle {
+    font-weight: bold;
+    padding-right: 15px;
+    display: block;
+}
+.characterAbout {
+    padding-left: 15px;
+    display: block;
+}
+.characterHouse {
+    font-family: 'Lato' !important;
+    font-weight: bold !important;
+    padding: 15px 0;
+}
 .hr {
     width: 100%;
     height: 3px; 
@@ -20,7 +34,7 @@
 }
 
 .card {
-    @media screen and (min-width: $smallScreen) { min-height: 750px !important; }
+    @media screen and (min-width: $smallScreen) { min-height: 875px !important; }
     background-color: lighten($darkGray2, 15%) !important;
     color: $white !important;
     font-weight: bold;
