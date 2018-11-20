@@ -75,13 +75,13 @@ function registerPlayer(number){
         x.removeChild(x.lastChild);
         inuse--;
         if( inuse >= 1){ player = 2; }else{ player = 1; }
-        player = 2;
+        
         console.log(inuse);
     }
     else if ( x.lastElementChild.innerHTML == "Player1" ){
         x.removeChild(x.lastChild);
         inuse--;
-        player = 1;
+        if( inuse >= 2){ player = 2; }else{ player = 1; }
         console.log(inuse);
     }
     else {
@@ -90,7 +90,8 @@ function registerPlayer(number){
         h1.appendChild(t);                                // Append the text to <button>
         x.appendChild(h1); 
         player++;
-        inuse++;
+        if( inuse < 2 ){ inuse++; }
+        
         console.log(inuse);
     }
    
