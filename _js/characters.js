@@ -22,18 +22,82 @@ function fetchPromise(urlChar, key) {
 
         // If character has a house attached, deliver house data.
         if(data.allegiances[0]){
+
             fetch(data.allegiances[0]) // Fetch from House url from Character.
                 .then((resp1) => resp1.json()) // Response, parse JSON.
                 .then((houseData) => { 
-                    return htmlCharacter(key, data.name, data.titles, data.gender, data.born, data.culture, data.died, htmlID, houseData.name, houseData.region, houseData.coatOfArms, houseData.words);
+                    htmlCharacter(key, data.name, data.titles, data.gender, data.born, data.culture, data.died, htmlID, houseData.name, houseData.region, houseData.coatOfArms, houseData.words);
+                    elementAddEvent();
                 })
         // If character has no house, just deliver character data.
         }else{
             return htmlCharacter(key, data.name, data.titles, data.gender, data.born, data.culture, data.died, htmlID);
+            elementAddEvent();
         }
     }) 
+
     // If it delivers ERROR, write to console.
     .catch((error) => console.error("FAILED: " + error)); 
+}
+
+function elementAddEvent() {
+    let a = document.getElementsByClassName("clickToChoose");
+    for(i = 0; i < a.length; i++){ 
+        let att = a[i].getAttribute('data-characterID')
+        a[i].addEventListener("click", function clicked(event) {
+            console.log('You clicked: ' + att);
+            event.preventDefault();
+            addOverlay(att);
+        });
+    }
+}
+var player = 1;
+function addOverlay(number){
+    let x = document.getElementById(number);
+    let y = document.getElementsByClassName("overlay");
+
+
+    if( y.length >= 2 && x.classList.contains("overlay") || y.length < 2 ){
+        x.classList.toggle("overlay");
+
+        registerPlayer(number);
+
+    } else {
+        console.log("Too many players selected!");
+    }
+}
+var inuse = 0;
+function registerPlayer(number){
+    console.log(player, number);
+
+    let x = document.getElementById(number);
+    if( x.lastElementChild.innerHTML == "Player2" ){
+        x.removeChild(x.lastChild);
+        inuse--;
+        if( inuse >= 1){ player = 2; }else{ player = 1; }
+        player = 2;
+        console.log(inuse);
+    }
+    else if ( x.lastElementChild.innerHTML == "Player1" ){
+        x.removeChild(x.lastChild);
+        inuse--;
+        player = 1;
+        console.log(inuse);
+    }
+    else {
+        var h1 = document.createElement("h1");        // Create a <button> element
+        var t = document.createTextNode("Player" + player);       // Create a text node
+        h1.appendChild(t);                                // Append the text to <button>
+        x.appendChild(h1); 
+        player++;
+        inuse++;
+        console.log(inuse);
+    }
+   
+}
+
+function addPlayButton(){
+
 }
 
 
@@ -58,7 +122,8 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
     // Write the given character to a HTML card - Bootstrap.
     document.getElementById(cardID).innerHTML += `
     <div class="col-xl-4 col-md-6 col-xs-12 my-3 mx-auto">
-    <div class="card text-center" data-characterId="`+ key + `">
+    <div id="` + key + `">
+    <div class="card text-center">
     <div class="card-header">
         <h2 class="card-title text-center">` + name + `</h2>
     </div>
@@ -87,10 +152,11 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
         
     </div>
     <div class="card-footer">
-        <a href="#" class="btn btn-danger link w-100">Choose</a>
-    </div>
-    </div>
-    </div>
+        <a href="#" class="btn btn-danger link w-100 clickToChoose" data-characterID="`+ key + `">Choose</a>
+    </div> <!-- footer -->
+    </div> <!-- card -->
+    </div> <!-- overlay -->
+    </div> <!-- col -->
     `;
     
 }

@@ -13,6 +13,17 @@
 ****** / OVERFLOW SEARCH ***********/
 
 //** CARDS **//
+.overlay {
+    content: 'PLAYER!';
+    z-index: 99;
+    opacity: 0.5;
+    background: rgba(39, 42, 43, 0.8);
+    transition: opacity 200ms ease-in-out;
+}
+
+.playerChosen {
+    border: 5px solid $color2;
+}
 .characterTitle {
     font-weight: bold;
     padding-right: 15px;
