@@ -136,6 +136,9 @@ a:hover {
             opacity: 1 !important; visibility: visible !important;
         }
 ****** / OVERFLOW SEARCH ***********/
+#testCanvas {
+  border: 3px solid red; }
+
 .overlay {
   content: 'PLAYER!';
   z-index: 99;
