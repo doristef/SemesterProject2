@@ -225,7 +225,7 @@ function startCharacter(){
     // Return new canvas along with placement of token
     return stage.update();
 }
-console.log(space);
+
 function moveCharacter(dice){
     let i = 0;
     do{
@@ -239,9 +239,8 @@ function moveCharacter(dice){
             else if ( player[playerTurn].dice >= (1+total) ){
                 player[playerTurn].x = space[total].x + 15;
                 player[playerTurn].y = space[total].y + 10;
-                console.log('end of game : ' + player[playerTurn].dice);
+
                 let winnerMessage = player[playerTurn].name + ' WON!';
-                console.log(winnerMessage);
 
                 return clearStageNoMove(), addText(winnerMessage, 'red'),
                 stage.update();
@@ -249,7 +248,7 @@ function moveCharacter(dice){
 
             i++;
     }while(i < dice);
-    console.log(space[player[playerTurn].dice]);
+
     if('trap' in space[player[playerTurn].dice]) {
         let newDice = player[playerTurn].dice + space[player[playerTurn].dice].trap.alert;
         if( newDice <= 0){ newDice = 1; }else if( newDice >= 30){ newDice = 30;}
@@ -286,7 +285,6 @@ function moveCharacter(dice){
 function addText(text, color){
     let message = new createjs.Text(text, "bold 15px Arial", color);
     var b = message.getBounds();
-    console.log((message.getMeasuredWidth() / 2) + ' --> ' + message.getMeasuredWidth());
     message.x = (stage.width / 2); 
     message.y = 25;
     message.textAlign = "center";

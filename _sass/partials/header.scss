@@ -48,7 +48,14 @@
 
 } // navbar
 
-.nav-link::after {
-    padding-left: 1rem;
-    content: ' ';
+.nav-link {
+
+    &-footer:hover {
+        color: $color3 !important;
+    }
+
+    &::after {
+        padding-left: 1rem;
+        content: ' ';
+    }
 }
