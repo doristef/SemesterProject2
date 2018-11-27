@@ -33,7 +33,7 @@ var y = 100;
 /* PLAYER VARIABLES */
 var playerX = 0, playerY = 0, playerDice =[0,0];
 
-var player = [{0 : "Player 1", color : "green", x : x + 25, y : y + 10, dice : 0}, {1 : "Player 2", color : "blue", x : x + 25, y : y + 10, dice : 0}];
+var player = [{name : "Player 1", color : "green", x : x + 25, y : y + 10, dice : 0}, {name : "Player 2", color : "blue", x : x + 25, y : y + 10, dice : 0}];
 
 var playerTurn = 0;
 
@@ -240,7 +240,11 @@ function moveCharacter(dice){
                 player[playerTurn].x = space[total].x + 15;
                 player[playerTurn].y = space[total].y + 10;
                 console.log('end of game : ' + player[playerTurn].dice);
-                return clearStageNoMove();
+                let winnerMessage = player[playerTurn].name + ' WON!';
+                console.log(winnerMessage);
+
+                return clearStageNoMove(), addText(winnerMessage, 'red'),
+                stage.update();
             }
 
             i++;
@@ -248,13 +252,13 @@ function moveCharacter(dice){
     console.log(space[player[playerTurn].dice]);
     if('trap' in space[player[playerTurn].dice]) {
         let newDice = player[playerTurn].dice + space[player[playerTurn].dice].trap.alert;
-
+        if( newDice <= 0){ newDice = 1; }else if( newDice >= 30){ newDice = 30;}
         let trapMessage = 'ITS A TRAP!\n ' + space[player[playerTurn].dice].trap.message + 
         '\n You will be moved : ' + space[player[playerTurn].dice].trap.alert + ' spaces!' +
         '\n From space: ' + player[playerTurn].dice + ' to space: ' + newDice;
 
         addText(trapMessage, 'red')
-        player[playerTurn].dice += space[player[playerTurn].dice].trap.alert;
+        player[playerTurn].dice = newDice;
         player[playerTurn].x = space[(player[playerTurn].dice-1)].x + 15;
         player[playerTurn].y = space[(player[playerTurn].dice-1)].y + 10;
         
