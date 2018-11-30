@@ -70,7 +70,7 @@ if( sessionStorage.getItem('player1') && sessionStorage.getItem('player2')){
 
 /* ON GAME START - Call Functions */
 createBoard(x,y,total,size);
-throwDiceButton();
+throwDiceButton(player[playerTurn]);
 startCharacter(x,y);
 
 /**************************************************************
@@ -78,7 +78,7 @@ startCharacter(x,y);
  *  FUNCTIONS FOR CANVAS
  * 
  **************************************************************/
-function clearStageNoMove(dice){
+function clearStageNoMove(){
     stage.removeAllChildren();
     createBoard(x,y,total,size);
     startCharacter();
@@ -99,22 +99,23 @@ function clearStage(dice){
  * 
  **************************************************************/
 
-function throwDiceButton(){
+function throwDiceButton(player){
     let diceButton = new createjs.Shape();
     let diceButtonColor = "blue";
-    diceButton.x = (stage.width / 2) - 75;
+    diceButton.x = (stage.width / 2) - 87;
     diceButton.y = (stage.height / 2) - 200;
     diceButton.graphics.beginFill(diceButtonColor);
-    diceButton.graphics.drawRect(0,0, 150, 50);
+    diceButton.graphics.drawRect(0,0, 175, 75);
     diceButton.graphics.endFill();
-
-    let diceButtonText = new createjs.Text("Throw Dice!", "bold 25px Arial", "white");
-    diceButtonText.x = diceButton.x + 75;
+    let diceText = player.name + " Throw Dice!";
+    let diceButtonText = new createjs.Text(diceText, "bold 25px Arial", "white");
+    diceButtonText.x = diceButton.x + 87;
     diceButtonText.y = diceButton.y + 25;
     diceButtonText.textBaseline = "middle";
     diceButtonText.textAlign = "center";
+    diceButtonText.lineWidth = 150;
     
-    if( player[playerTurn].dice == (1+total) ){
+    if( player.dice == (1+total) ){
         diceButton.removeEventListener("click");
     }else{ 
         diceButton.addEventListener("click", throwDice);    
@@ -134,7 +135,7 @@ function throwDice(){
     if( player[playerTurn].dice < (1+total) && !(player[playerTurn].dice == (1+total)) ){
         // Clear the stage, before we return the showDice function
         clearStage(dice);
-        throwDiceButton();
+        throwDiceButton(player[playerTurn]);
         showCharacter(playerTurn);
 
         // Return showDice function, with the dice
@@ -160,7 +161,7 @@ function showDice(dice){
         diceIMG.src = '_assets/dice/' + dice + '.png';
     let bitmap = new createjs.Bitmap(diceIMG);
         bitmap.x = (stage.width / 2) - 50;
-        bitmap.y = (stage.height / 2) -125;
+        bitmap.y = (stage.height / 2) -115;
 
     // Add the right image to the stage
     return stage.addChild(bitmap);
@@ -172,25 +173,6 @@ function showDice(dice){
  *  FUNCTIONS FOR CREATING SHAPES
  * 
  **************************************************************/
-function createCircle(key){
-
-    let circle = [];
-
-    for(i = 0; i < key; i++){
-        circle = new createjs.Shape();
-        circle.graphics.beginFill("Red").drawCircle(0,0,30);
-        circle.x = 100 + (i * 50);
-        circle.y = 100 + (i * 50);
-        stage.addChild(circle);
-        
-        createjs.Ticker.setFPS(60);
-        createjs.Ticker.addEventListener("tick", stage);
-    
-        createjs.Tween.get(circle, {loop: true})
-        .to({alpha:0, x: 400}, 3000, createjs.Ease.elasticInOut)
-        .to({alpha:1, x: circle.x}, 3000, createjs.Ease.elasticInOut);
-    }
-}
 
 function createRectangle(color,size,x,y){
     let rect = new createjs.Shape();
@@ -209,7 +191,6 @@ function createRectangle(color,size,x,y){
  * 
  **************************************************************/
 
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -217,8 +198,6 @@ function shuffleArray(array) {
     }
     return array;
 }
-
-
 
 function addRandomTraps(){
 
