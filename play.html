@@ -20,30 +20,29 @@
                                   <a class="nav-link" href="index.html">Home</a>
                                 </li>
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="play.html">Play the Game</a>
+                                    <a class="nav-link" href="characters.html".html">Play the Game</a>
                                 </li>
                                 <li class="nav-item">
-                                  <a class="nav-link" href="characters.html">About the Characters</a>
+                                  <a class="nav-link" href="#">About the Characters</a>
                                 </li>
                                 <li class="nav-item">
                                   <a class="nav-link" href="rules.html">Rules</a>
                                 </li>
                             </ul>
-                </nav>
+        </nav>
 
-    <div class="container">
         <div class="row justify-content-md-center background--paper border--sides">
-            <!-- Old Button
-                <div style="display: block; width: 100%; height: 100px; margin: 25px;">
-                <button id="throw" class="btn btn-primary">Throw the Dice!</button>
-                <div id="diceID" style="display: block;"></div>
-                </div>  
-            -->
-        
-            <canvas id="testCanvas" width="800" height="800"></canvas>
-
+            <div class="col-sm-6 order-1 order-lg-1 col-lg-2 text-center">
+                <div id="player1" class="playerVS"></div>
+            </div>
+            <div class="col-sm-12 order-3 order-lg-2 col-lg-8 mx-auto text-center">
+            <canvas id="testCanvas" width="800" height="800" class="mx-auto"></canvas>
+            </div>
+            <div class="col-sm-6 order-2 order-lg-3 col-lg-2 text-center">
+                    <div id="player2" class="playerVS"></div>
+            </div>
         </div> <!-- row justify-->
-    </div><!-- content container -->
+
 
 <!-- SCRIPTS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

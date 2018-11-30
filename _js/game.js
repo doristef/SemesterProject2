@@ -8,8 +8,8 @@
 const stage = new createjs.Stage("testCanvas");
 
 // Set the width and height of the canvas
-stage.width = 500;
-stage.height = 500;
+stage.width = 800;
+stage.height = 800;
 
 // Set the ticker to 60fps
 createjs.Ticker.setFPS(60);
@@ -27,7 +27,7 @@ var space = [];
 
 /* BOARD LAYOUT */
 const layout = [8, 15, 23, 30];
-var x = 25;
+var x = 15;
 var y = 100;
 
 /* PLAYER VARIABLES */
@@ -36,6 +36,37 @@ var playerX = 0, playerY = 0, playerDice =[0,0];
 var player = [{name : "Player 1", color : "green", x : x + 25, y : y + 10, dice : 0}, {name : "Player 2", color : "blue", x : x + 25, y : y + 10, dice : 0}];
 
 var playerTurn = 0;
+
+if( sessionStorage.getItem('player1') && sessionStorage.getItem('player2')){
+    player[0].number = sessionStorage.getItem('player1');
+    player[1].number = sessionStorage.getItem('player2')
+    /*
+    sessionStorage.removeItem('player1');
+    sessionStorage.removeItem('player2');
+    */
+
+    document.getElementById('player1').innerHTML += `
+    <div class="card text-center">
+    <div class="card-body">
+        <h5 class="card-title text-center">`+ player[0].name + `</h5>
+        <span style="display: block; background-color: ` + player[0].color + `; width: 100%; height: 25px;"> Colour</span>
+        <img class="card-img-top mx-auto mt-4 mb-2" src="_img/`+ player[0].number + `.png" alt="Card image" style="max-height: 100px; max-width: 100px;">
+        
+    </div>
+        
+    </div> <!-- card -->
+    `;
+
+    document.getElementById('player2').innerHTML += `
+    <div class="card text-center">
+    <div class="card-body">
+        <h5 class="card-title text-center">`+ player[1].name + `</h5>
+        <span style="display: block; background-color: ` + player[1].color + `; width: 100%; height: 25px;"> Colour</span>
+        <img class="card-img-top mx-auto mt-4 mb-2" src="_img/`+ player[1].number + `.png" alt="Card image" style="max-height: 100px; max-width: 100px;">
+    </div>
+    </div> <!-- card -->
+    `;
+}
 
 /* ON GAME START - Call Functions */
 createBoard(x,y,total,size);
@@ -47,7 +78,7 @@ startCharacter(x,y);
  *  FUNCTIONS FOR CANVAS
  * 
  **************************************************************/
-function clearStageNoMove(){
+function clearStageNoMove(dice){
     stage.removeAllChildren();
     createBoard(x,y,total,size);
     startCharacter();
@@ -71,10 +102,10 @@ function clearStage(dice){
 function throwDiceButton(){
     let diceButton = new createjs.Shape();
     let diceButtonColor = "blue";
-    diceButton.x = (stage.width / 2) + 75;
-    diceButton.y = (stage.height / 2) - 50;
+    diceButton.x = (stage.width / 2) - 75;
+    diceButton.y = (stage.height / 2) - 200;
     diceButton.graphics.beginFill(diceButtonColor);
-    diceButton.graphics.drawRect(0, 0, 150, 50);
+    diceButton.graphics.drawRect(0,0, 150, 50);
     diceButton.graphics.endFill();
 
     let diceButtonText = new createjs.Text("Throw Dice!", "bold 25px Arial", "white");
@@ -107,7 +138,7 @@ function throwDice(){
         showCharacter(playerTurn);
 
         // Return showDice function, with the dice
-        return showDice(dice);
+        return showDice(dice), stage.update();
     }
     // Remove dice image and disable dice if player is finished
     else {
@@ -128,18 +159,11 @@ function showDice(dice){
     let diceIMG = new Image();
         diceIMG.src = '_assets/dice/' + dice + '.png';
     let bitmap = new createjs.Bitmap(diceIMG);
-        bitmap.x = (stage.width / 2) + 100;
-        bitmap.y = (stage.height / 2) + 10;
+        bitmap.x = (stage.width / 2) - 50;
+        bitmap.y = (stage.height / 2) -125;
 
     // Add the right image to the stage
-    if( player[playerTurn].dice == (1+total) ){
-
-    }else {
-        stage.addChild(bitmap);
-    }
-    
-    // And update the stage
-    return stage.update();
+    return stage.addChild(bitmap);
     
 }
 
@@ -240,10 +264,8 @@ function moveCharacter(dice){
                 player[playerTurn].x = space[total].x + 15;
                 player[playerTurn].y = space[total].y + 10;
 
-                let winnerMessage = player[playerTurn].name + ' WON!';
-
-                return clearStageNoMove(), addText(winnerMessage, 'red'),
-                stage.update();
+                let winnerMessage = player[playerTurn].name + ' WOoooooON!';
+                return clearStageNoMove(), addText(winnerMessage, 'red',0,-175);
             }
 
             i++;
@@ -251,17 +273,25 @@ function moveCharacter(dice){
 
     if('trap' in space[player[playerTurn].dice]) {
         let newDice = player[playerTurn].dice + space[player[playerTurn].dice].trap.alert;
+
         if( newDice <= 0){ newDice = 1; }else if( newDice >= 30){ newDice = 30;}
+
         let trapMessage = 'ITS A TRAP!\n ' + space[player[playerTurn].dice].trap.message + 
         '\n You will be moved : ' + space[player[playerTurn].dice].trap.alert + ' spaces!' +
         '\n From space: ' + player[playerTurn].dice + ' to space: ' + newDice;
 
-        addText(trapMessage, 'red')
+        
         player[playerTurn].dice = newDice;
         player[playerTurn].x = space[(player[playerTurn].dice-1)].x + 15;
         player[playerTurn].y = space[(player[playerTurn].dice-1)].y + 10;
+        addText(trapMessage, 'red',0,50);
+        if ( player[playerTurn].dice >= (1+total) ){
+            let winnerMessage = player[playerTurn].name + ' WON!';
+            return clearStageNoMove(dice),
+            addText(winnerMessage, 'red',0,-175),
+            addText(trapMessage, 'red',0,50);
+        }
         
-
         createRectangle(player[playerTurn].color, 40, player[playerTurn].x, player[playerTurn].y);
     }else{
         createRectangle(player[playerTurn].color, 40, player[playerTurn].x, player[playerTurn].y);
@@ -282,23 +312,22 @@ function moveCharacter(dice){
  *  FUNCTIONS FOR CREATING BOARD
  * 
  **************************************************************/
-function addText(text, color){
-    let message = new createjs.Text(text, "bold 15px Arial", color);
-    var b = message.getBounds();
-    message.x = (stage.width / 2); 
-    message.y = 25;
+function addText(text, color,xx,yy){
+    let message = new createjs.Text(text, "bold 20px Arial", color);
+    message.x = xx + (stage.width / 2); 
+    message.y = yy + (stage.width / 2);
     message.textAlign = "center";
-    message.lineWidth = 300;
-    return stage.addChild(message);
+    message.lineWidth = 350;
+    return stage.addChild(message), stage.update();
 }
 
-function addNumbers(number, color, size, x,y){
+function addNumbers(number, color, x,y){
     let numbers = new createjs.Text(number, "bold 25px Arial", color);
     numbers.x = x + (size/2);
     numbers.y = y + (size/2);
     numbers.textBaseline = "middle";
     numbers.textAlign = "center";
-    return stage.addChild(numbers);
+    return stage.addChild(numbers), stage.update();
 }
 
 function createBoard(x,y, total, size, ){
@@ -321,7 +350,7 @@ function createBoard(x,y, total, size, ){
             space[i] = { 'x' : x, 'y' : y };
         }
         createRectangle("red", size, x,y)
-        addNumbers(i+1, "black", size, x,y);
+        addNumbers(i+1, "black", x,y);
     }
     return addRandomTraps(), stage.update();
 }
