@@ -5,7 +5,7 @@ if( sessionStorage.getItem('winner') && sessionStorage.getItem('winner-player') 
         <h1>HERE COMES THE SHIELD</h1>>
     </div>
     <div class="col-sm-12 mx-auto text-center" >
-        <h1>` + sessionStorage.getItem('winner') + `E</h1>>
+        <h1>` + sessionStorage.getItem('winner') + `</h1>>
         <h3>` + sessionStorage.getItem('winner-player') + `</h3>
         <h5>You've reached the end of your quest!<br>
             Congratulations on your WIN!</h5>
