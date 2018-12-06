@@ -53,10 +53,11 @@ function elementAddEvent() {
     let a = document.getElementsByClassName("clickToChoose");
     for(i = 0; i < a.length; i++){ 
         let att = a[i].getAttribute('data-characterID')
+        let attName = a[i].getAttribute('data-characterName')
         a[i].addEventListener("click", function clicked(event) {
-            console.log('You clicked: ' + att);
+            console.log('You clicked: ' + att + attName);
             event.preventDefault();
-            addOverlay(att);
+            addOverlay(att, attName);
         });
     }
 }
@@ -67,13 +68,13 @@ function elementAddEvent() {
  *  Add event listener to button on all characters.
  *
  **********************************************************************/
-function addOverlay(number){
+function addOverlay(number, name){
     let x = document.getElementById(number);
     let y = document.getElementsByClassName("overlay");
 
     if( y.length >= 2 && x.classList.contains("overlay") || y.length < 2 ){
         x.classList.toggle("overlay");
-        registerPlayer(number);
+        registerPlayer(number, name);
     } else {
         console.log("Too many players selected!");
     }
@@ -85,7 +86,7 @@ function addOverlay(number){
  *  Register player chosen, user can only choose 2 players.
  *
  **********************************************************************/
-function registerPlayer(number){
+function registerPlayer(number, name){
 
     let x = document.getElementById(number);
         if( x.lastElementChild.innerHTML == "Player2" ){
@@ -99,11 +100,12 @@ function registerPlayer(number){
             if( inuse >= 2){ player = 2; }else{ player = 1; }
             
         } else {
-            var h1 = document.createElement("h1");        // Create a <button> element
-            var t = document.createTextNode("Player" + player);       // Create a text node
-            h1.appendChild(t);                                // Append the text to <button>
+            var h1 = document.createElement("h1");  
+            var t = document.createTextNode("Player" + player);  
+            h1.appendChild(t);       
             x.appendChild(h1); 
             sessionStorage.setItem('player'+player, number);
+            sessionStorage.setItem('player'+player+'Name', name);
             player++;
             if( inuse < 2 ){ inuse++; }
             if( inuse == 2){
@@ -204,7 +206,7 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
         
     </div>
     <div class="card-footer">
-        <a href="#" class="btn btn-danger link w-100 clickToChoose" data-characterID="`+ key + `">Choose</a>
+        <a href="#" class="btn btn-danger link w-100 clickToChoose" data-characterID="`+ key + `" data-characterName="`+ name + `">Choose</a>
     </div> <!-- footer -->
     </div> <!-- card -->
     </div> <!-- overlay -->

@@ -22,7 +22,7 @@ throwDices.addEventListener("click", throwDice);  */
 /* CREATE BOARD VARIABLES */
 const size = 65;
 const spacing = 70;
-const total = 29; // Starts from 0
+const total = 29; // Starts from 0 = 30
 var space = [];
 
 /* BOARD LAYOUT */
@@ -32,14 +32,18 @@ var y = 100;
 
 /* PLAYER VARIABLES */
 var playerX = 0, playerY = 0, playerDice =[0,0];
-
-var player = [{name : "Player 1", color : "green", x : x + 25, y : y + 10, dice : 0}, {name : "Player 2", color : "blue", x : x + 25, y : y + 10, dice : 0}];
+let doubles = 0;
+var player = [{character : "", name : "Player 1", color : "green", x : x + 25, y : y + 10, dice : 0}, {character : "", name : "Player 2", color : "blue", x : x + 25, y : y + 10, dice : 0}];
 
 var playerTurn = 0;
 
 if( sessionStorage.getItem('player1') && sessionStorage.getItem('player2')){
     player[0].number = sessionStorage.getItem('player1');
     player[1].number = sessionStorage.getItem('player2')
+    player[0].character = sessionStorage.getItem('player1Name');
+    player[1].character = sessionStorage.getItem('player2Name');
+    console.log(player[0].character + ' - ' + player[0].number);
+    console.log(player[1].character + ' - ' + player[1].number);
     /*
     sessionStorage.removeItem('player1');
     sessionStorage.removeItem('player2');
@@ -66,7 +70,7 @@ if( sessionStorage.getItem('player1') && sessionStorage.getItem('player2')){
     </div>
     </div> <!-- card -->
     `;
-}
+
 
 /* ON GAME START - Call Functions */
 createBoard(x,y,total,size);
@@ -101,7 +105,7 @@ function clearStage(dice){
 
 function throwDiceButton(player){
     let diceButton = new createjs.Shape();
-    let diceButtonColor = "blue";
+    let diceButtonColor = player.color;
     diceButton.x = (stage.width / 2) - 87;
     diceButton.y = (stage.height / 2) - 200;
     diceButton.graphics.beginFill(diceButtonColor);
@@ -150,7 +154,7 @@ function throwDice(){
 
 function randomDice(){
     // Get a random number between 1-6
-    let dice = Math.floor(Math.random() * (6 - 1) + 1);
+    let dice = Math.floor(Math.random() * (7 - 1) + 1);
     // Return the dice number
     return dice;
 }
@@ -161,11 +165,14 @@ function showDice(dice){
         diceIMG.src = '_assets/dice/' + dice + '.png';
     let bitmap = new createjs.Bitmap(diceIMG);
         bitmap.x = (stage.width / 2) - 50;
-        bitmap.y = (stage.height / 2) -115;
-
+        bitmap.y = (stage.height / 2) - 115;
+    bitmap.stroke
     // Add the right image to the stage
-    return stage.addChild(bitmap);
-    
+    return stage.addChild(bitmap); 
+}
+
+function removeDice(){
+    return stage.removeChild(bitmap);
 }
 
 /**************************************************************
@@ -202,11 +209,11 @@ function shuffleArray(array) {
 function addRandomTraps(){
 
     var randomTrap = [
-        { alert : -1, message : 'Bla bla random GoT quote! ' },
-        { alert : -3, message : 'Bla bla random GoT quote! '  },
-        { alert : +5, message : 'Bla bla random GoT quote! '  },
-        { alert : -6, message : 'Bla bla random GoT quote! '  },
-        { alert : +15, message : 'Bla bla random GoT quote! '  }
+        { alert : -1, message : 'Queen Latifah sends you back! \n Go back ' },
+        { alert : -3, message : 'Winter is Here! \n Go back '  },
+        { alert : +4, message : 'The sun is shining,\n move forward '  },
+        { alert : -6, message : 'A dragon in your path... \n Retreat! \nGo back '  },
+        { alert : +2, message : 'You found a shortcut, \n move forward '  }
     ];
     shuffleArray(randomTrap);
 
@@ -232,6 +239,11 @@ function startCharacter(){
 function moveCharacter(dice){
     let i = 0;
     do{
+        if( dice === 6 && doubles >= 1 ){
+            let diceMessage = player[playerTurn].name + ' rolled the big 6 AGAIN!! \n And will not move at all this round!';
+            playerTurn = playerTurn == 1 ? playerTurn = 0 : playerTurn = 1;
+            return startCharacter(), addText(diceMessage, 'red',0,-15), stage.update(), playerTurn, dice = 0;
+        }
         if( player[playerTurn].dice < (1+total) ){
             player[playerTurn].dice++
         }
@@ -243,8 +255,11 @@ function moveCharacter(dice){
                 player[playerTurn].x = space[total].x + 15;
                 player[playerTurn].y = space[total].y + 10;
 
-                let winnerMessage = player[playerTurn].name + ' WOoooooON!';
-                return clearStageNoMove(), addText(winnerMessage, 'red',0,-175);
+                sessionStorage.clear();
+                sessionStorage.setItem('winner', player[playerTurn].character);
+                sessionStorage.setItem('winner-player', player[playerTurn].name);
+                return setInterval(function() { window.location="winner.html"; },1000);
+
             }
 
             i++;
@@ -255,8 +270,8 @@ function moveCharacter(dice){
 
         if( newDice <= 0){ newDice = 1; }else if( newDice >= 30){ newDice = 30;}
 
-        let trapMessage = 'ITS A TRAP!\n ' + space[player[playerTurn].dice].trap.message + 
-        '\n You will be moved : ' + space[player[playerTurn].dice].trap.alert + ' spaces!' +
+        let trapMessage = 'SOMETHING IN YOUR PATH! \n ' + space[player[playerTurn].dice].trap.message + 
+        ' ' + space[player[playerTurn].dice].trap.alert + ' spaces!' +
         '\n From space: ' + player[playerTurn].dice + ' to space: ' + newDice;
 
         
@@ -270,20 +285,24 @@ function moveCharacter(dice){
             addText(winnerMessage, 'red',0,-175),
             addText(trapMessage, 'red',0,50);
         }
-        
-        createRectangle(player[playerTurn].color, 40, player[playerTurn].x, player[playerTurn].y);
-    }else{
-        createRectangle(player[playerTurn].color, 40, player[playerTurn].x, player[playerTurn].y);
     }
-    // Place the token on the right space
     
+        createRectangle(player[playerTurn].color, 40, player[playerTurn].x, player[playerTurn].y);
     
 
-
-    if( playerTurn == 1 ){
-        playerTurn = 0; }else if( playerTurn == 0) { playerTurn = 1;  }
+    if( dice === 6 && doubles === 0 ){
+        let diceMessage = player[playerTurn].name + ' rolled the big 6! \n And will get another turn!';
+        addText(diceMessage, 'red',0,-15);
+        doubles++;
+        startCharacter();
+        stage.update();
+        console.log('Doubles: '  + doubles);
+    }else{
+        playerTurn = playerTurn == 1 ? playerTurn = 0 : playerTurn = 1;
+        return stage.update(), playerTurn, doubles = 0;
+    }
+ 
     // Return new canvas along with placement of token
-    return stage.update(), player[playerTurn].x, player[playerTurn].y, playerTurn;
 }
 
 /**************************************************************
@@ -332,4 +351,8 @@ function createBoard(x,y, total, size, ){
         addNumbers(i+1, "black", x,y);
     }
     return addRandomTraps(), stage.update();
+}
+} // end if player chosen
+else{ // Fallback, if no sessionStorage is set.
+    document.getElementById('testCanvas').parentElement.innerHTML = '<h1 style="color: white;">No Players Chosen!</h1><a href="characters.html" class="btn btn-primary" style="margin-top: 2rem;">Go Play?</a>';
 }
