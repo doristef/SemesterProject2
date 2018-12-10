@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400|Playball');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+@import url('https://fonts.googleapis.com/css?family=Cinzel+Decorative|Cinzel:400,700,900');
 
 //*** FONT - IMPORT ***/
 
 $bodyFont : 'Lato',sans-serif;
 $bodyWeight : 300;
-$headingFont : 'Playball', serif;
-$navFont : 'Playball', serif;
+$headingFont : 'Cinzel Decorative', cursive;
+$navFont : 'Cinzel Decorative', cursive;
+$btnFont : 'Cinzel Decorative', cursive;
 $navWeight : 500;
 $navStyle : none;
 
@@ -23,18 +26,25 @@ $darkGray2 : #4f4f4f;
 $darkGray : #494949;
 $skinColor : #ffebd8;
 $color1 : #2A81A5;
-$color2 : #22B5B9;
+$color2 : #53585e;
 $color3 : #FF6B4C;
+$red : #dc1e3d;
+$btnPrimary : #ffc531;
+$btnPrimaryColor : #606468;
+$btnSecondary : #53585e; // #4f687d;
+$cardBackground : #6f757b;
+$player1 : #febc2c;
+$player2 : #2badff;
 
 //** FONT SIZES **//
 $headings: (
-    h1 : 41px,
-    h2 : 37px,
-    h3 : 34px,
-    h4 : 31px,
-    h5 : 28px,
-    h6 : 24px );
-$navText : 37px;
+    h1 : 29px,
+    h2 : 25px,
+    h3 : 23px,
+    h4 : 21px,
+    h5 : 19px,
+    h6 : 17px );
+$navText : 24px;
 $bodyFontSize : 17px;
 
 //** MARGIN - PADDING **//
@@ -46,6 +56,6 @@ $bottomPad: 15px;
 
 //** SIZES **//
 $footerHeight: 120px;
-$navHeight: 80px;
+$navHeight: 65px;
 $smallScreen: 767px;
 $medScreen: 1024px;

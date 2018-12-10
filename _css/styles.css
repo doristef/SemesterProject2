@@ -1,45 +1,47 @@
 /*** IMPORT ***/
 @import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400|Playball");
+@import url("https://fonts.googleapis.com/css?family=Abril+Fatface");
+@import url("https://fonts.googleapis.com/css?family=Cinzel+Decorative|Cinzel:400,700,900");
 body {
   font-family: "Lato", sans-serif;
   font-weight: 300 !important;
   font-style: none;
   font-size: 17px;
-  color: #494949; }
+  color: #ffffff; }
 
 h1, .h1 {
-  font-size: 2.5625rem;
-  font-family: "Playball", serif;
+  font-size: 1.8125rem;
+  font-family: "Cinzel Decorative", cursive;
   color: #ffffff;
   font-weight: bold; }
 
 h2, .h2 {
-  font-size: 2.3125rem;
-  font-family: "Playball", serif;
+  font-size: 1.5625rem;
+  font-family: "Cinzel Decorative", cursive;
   color: #ffffff;
   font-weight: bold; }
 
 h3, .h3 {
-  font-size: 2.125rem;
-  font-family: "Playball", serif;
+  font-size: 1.4375rem;
+  font-family: "Cinzel Decorative", cursive;
   color: #ffffff;
   font-weight: bold; }
 
 h4, .h4 {
-  font-size: 1.9375rem;
-  font-family: "Playball", serif;
+  font-size: 1.3125rem;
+  font-family: "Cinzel Decorative", cursive;
   color: #ffffff;
   font-weight: bold; }
 
 h5, .h5 {
-  font-size: 1.75rem;
-  font-family: "Playball", serif;
+  font-size: 1.1875rem;
+  font-family: "Cinzel Decorative", cursive;
   color: #ffffff;
   font-weight: bold; }
 
 h6, .h6 {
-  font-size: 1.5rem;
-  font-family: "Playball", serif;
+  font-size: 1.0625rem;
+  font-family: "Cinzel Decorative", cursive;
   color: #ffffff;
   font-weight: bold; }
 
@@ -52,38 +54,67 @@ a:active {
   color: #e6e6e6;
   text-decoration: underline; }
 a:hover {
-  color: #22B5B9; }
+  color: #ffc531; }
 
-.btn-danger {
-  color: #494949 !important;
-  background-color: #4f4f4f !important;
-  border: 1px solid #22B5B9; }
-.btn-danger:hover {
-  border: 1px solid #22B5B9 !important;
-  background-color: #363636 !important; }
+.btn-secondary {
+  color: #ffffff !important;
+  background-color: #646a71 !important;
+  border: 0 !important;
+  border-radius: 0 !important; }
+.btn-secondary:hover {
+  border: 0 !important;
+  background-color: #474b50 !important;
+  border-radius: 0 !important; }
+.btn-primary {
+  color: #606468 !important;
+  background-color: #ffc531 !important;
+  border: 0 !important; }
+  .btn-primary:hover {
+    border: 0 !important;
+    background-color: #b17f00 !important;
+    color: #ffffff !important; }
+  .btn-primary-bigtext {
+    font-size: 3.125rem;
+    font-family: "Cinzel Decorative", cursive;
+    font-weight: 900 !important;
+    color: #606468 !important; }
+  .btn-primary-medtext {
+    font-size: 1.625rem;
+    font-family: "Cinzel Decorative", cursive;
+    font-weight: 700 !important;
+    color: #606468 !important; }
+  .btn-primary-1 {
+    background-color: #febc2c !important; }
+    .btn-primary-1:hover {
+      background-color: #aa7501 !important; }
+  .btn-primary-2 {
+    background-color: #2badff !important;
+    color: #ffffff !important; }
+    .btn-primary-2:hover {
+      background-color: #0069ab !important; }
 
 /* FOOTER */
 .footer {
   width: 100%;
   height: 110px;
   line-height: 120px;
-  background-color: #22B5B9;
-  color: #494949;
+  background-color: #53585e;
+  color: #ffc531;
   font-weight: bold; }
   .footer__copy {
     display: block;
     width: 100%;
     height: 50px;
-    background-color: #22B5B9;
+    background-color: #53585e;
     font-size: 14px;
     line-height: 50px;
     text-align: center; }
   .footer__link {
-    color: #494949 !important; }
+    color: #ffc531 !important; }
     .footer__link:active {
-      color: #494949 !important; }
+      color: #ffc531 !important; }
     .footer__link:visisted {
-      color: #494949 !important; }
+      color: #ffc531 !important; }
     .footer__link:hover {
       color: #FF6B4C !important; }
 
@@ -103,13 +134,13 @@ a:hover {
   margin-right: 1rem; }
 
 .navbar {
-  background: #494949 !important;
+  background: #3b3f43 !important;
   color: #ffffff !important;
-  font-family: "Playball", serif;
-  font-size: 37px;
+  font-family: "Cinzel Decorative", cursive;
+  font-size: 24px;
   font-weight: 500 !important;
   font-style: none;
-  min-height: 80px;
+  min-height: 65px;
   width: 100%;
   margin: 0;
   border: 0;
@@ -124,10 +155,14 @@ a:hover {
     color: #e6e6e6 !important;
     text-decoration: underline; }
   .navbar a:hover {
-    color: #22B5B9 !important; }
+    color: #ffc531 !important;
+    text-decoration: underline; }
+  .navbar-image {
+    padding-right: 50px;
+    height: 65px; }
 
 .nav-link-footer:hover {
-  color: #FF6B4C !important; }
+  color: #ffc531 !important; }
 .nav-link::after {
   padding-left: 1rem;
   content: ' '; }
@@ -138,6 +173,13 @@ a:hover {
             opacity: 1 !important; visibility: visible !important;
         }
 ****** / OVERFLOW SEARCH ***********/
+.imageOverlayShield {
+  max-width: 30%;
+  width: 400px; }
+
+.hide {
+  display: none; }
+
 .playerVS {
   color: #ffffff !important; }
 
@@ -152,7 +194,7 @@ a:hover {
   background: rgba(39, 42, 43, 0.8);
   transition: opacity 200ms ease-in-out; }
 
-.trapOverlay {
+.playGame, .trapOverlay {
   height: 100%;
   width: 100%;
   position: fixed;
@@ -161,18 +203,6 @@ a:hover {
   top: 0;
   background-color: #000000;
   background-color: rgba(0, 0, 0, 0.9);
-  overflow-x: hidden;
-  transition: 1s; }
-
-.playGame {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  background-color: #000000;
-  background-color: rgba(0, 0, 0, 0.7);
   overflow-x: hidden;
   transition: 1s; }
 
@@ -192,7 +222,7 @@ a:hover {
   transition: opacity 200ms ease-in-out; }
 
 .playerChosen {
-  border: 5px solid #22B5B9; }
+  border: 5px solid #53585e; }
 
 .characterTitle {
   font-weight: bold;
@@ -204,22 +234,21 @@ a:hover {
   display: block; }
 
 .characterHouse {
-  font-family: 'Lato' !important;
-  font-weight: bold !important;
   padding: 15px 0; }
 
 .hr {
   width: 100%;
   height: 3px;
-  background-color: #22B5B9; }
+  background-color: #ffc531; }
 
 .card {
-  background-color: #757575 !important;
+  background-color: #6f757b !important;
   color: #ffffff !important;
   font-weight: bold; }
-  @media screen and (min-width: 767px) {
-    .card-character {
-      min-height: 875px !important; } }
+  .card-header {
+    background-color: #53585e !important; }
+  .card-body {
+    background-color: #6f757b !important; }
   .card a:link {
     color: #ffffff !important; }
   .card a:visited {
@@ -229,7 +258,12 @@ a:hover {
     color: #e6e6e6 !important;
     text-decoration: underline; }
   .card a:hover {
-    color: #22B5B9 !important; }
+    color: #ffc531 !important; }
+
+@media screen and (max-width: 767px) {
+  .img-rules {
+    display: block !important;
+    float: none !important; } }
 
 .hide--big {
   display: none !important; }
@@ -244,7 +278,7 @@ a:hover {
 .background--lines {
   background: repeating-linear-gradient(90deg, #494949, #494949 10px, #4f4f4f 10px, #4f4f4f 20px); }
 .background--lines__blue {
-  background: repeating-linear-gradient(45deg, #22B5B9, #22B5B9 10px, #21b1b5 10px, #20adb0 20px); }
+  background: repeating-linear-gradient(45deg, #53585e, #53585e 10px, #51555b 10px, #4e5359 20px); }
 .background--paper {
   background: #4f4f4f; }
 
@@ -268,8 +302,8 @@ a:hover {
       margin: 2rem 0; } }
 
 .border--sides {
-  border-left: 1px solid #22B5B9;
-  border-right: 1px solid #22B5B9;
+  border-left: 1px solid #53585e;
+  border-right: 1px solid #53585e;
   outline: 2px solid #665c5a;
   box-shadow: 0 0 0 4px #7f7f7f; }
 .border--sides:before {
@@ -279,9 +313,9 @@ a:hover {
   border-left: 1px solid #e9e9e9;
   border-right: 1px solid #e9e9e9; }
 .border--bottom {
-  border-bottom: 1px solid #126163; }
+  border-bottom: 1px solid #232528; }
 .border--top {
-  border-top: 1px solid #126163; }
+  border-top: 1px solid #232528; }
 
 .margin__top {
   margin-top: 15px; }

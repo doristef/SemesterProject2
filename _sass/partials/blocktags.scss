@@ -5,7 +5,7 @@ body {
     font-weight: $bodyWeight !important;
     font-style: none;
     font-size: $bodyFontSize;
-    color: $darkGray;
+    color: $white;
 }
 
 //** HEADINGS **//
@@ -35,17 +35,59 @@ a {
     }
     
     &:hover {
-        color: $color2;
+        color: $btnPrimary;
     }
 }
 .btn {
-    &-danger {
-        color: $darkGray !important;
-        background-color: $darkGray2 !important;
-        border: 1px solid $color2;
+    &-secondary {
+        color: $white !important;
+        background-color: lighten($btnSecondary, 7%) !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+
     }
-    &-danger:hover {
-        border: 1px solid $color2 !important;
-        background-color: darken($darkGray2, 10%) !important;
+    &-secondary:hover {
+        border: 0 !important;
+        background-color: darken($btnSecondary, 5%) !important;
+        border-radius: 0 !important;
     }
+
+    &-primary {
+        color: $btnPrimaryColor !important;
+        background-color: $btnPrimary !important;
+        border: 0 !important;
+
+        &:hover {
+            border: 0 !important;
+            background-color: darken($btnPrimary, 25%) !important;
+            color: $white !important;
+        }
+
+        &-bigtext {
+            @include fontRem(50px);
+            font-family: $btnFont;
+            font-weight: 900 !important;
+            color: $btnPrimaryColor !important;
+        }
+        &-medtext {
+            @include fontRem(26px);
+            font-family: $btnFont;
+            font-weight: 700 !important;
+            color: $btnPrimaryColor !important;
+        }
+        &-1 {
+            background-color: $player1 !important;
+            &:hover{
+                background-color: darken($player1, 25%) !important;
+            }
+        }
+        &-2 {
+            background-color: $player2 !important;
+            color: $white !important;
+            &:hover {
+                background-color: darken($player2, 25%) !important;
+            }
+        }
+    }
+
 }

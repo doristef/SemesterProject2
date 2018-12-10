@@ -29,13 +29,13 @@ function fetchPromise(urlChar, key) {
                 .then((resp1) => resp1.json()) // Response, parse JSON.
                 .then((houseData) => { 
                     return htmlCharacter(key, data.name, data.titles, data.gender, data.born, data.culture, data.died, htmlID, houseData.name, houseData.region, houseData.coatOfArms, houseData.words),
-                    elementAddEvent();
+                    elementAddEvent(),elementAddMoreButton(key);
                 })
 
         // If character has no house, just deliver character data.
         }else{
             return htmlCharacter(key, data.name, data.titles, data.gender, data.born, data.culture, data.died, htmlID), 
-            elementAddEvent();
+            elementAddEvent(),elementAddMoreButton(key);
         }
     }) 
 
@@ -51,17 +51,37 @@ function fetchPromise(urlChar, key) {
  **********************************************************************/
 function elementAddEvent() {
     let a = document.getElementsByClassName("clickToChoose");
-    for(i = 0; i < a.length; i++){ 
-        let att = a[i].getAttribute('data-characterID')
-        let attName = a[i].getAttribute('data-characterName')
-        a[i].addEventListener("click", function clicked(event) {
-            console.log('You clicked: ' + att + attName);
-            event.preventDefault();
-            addOverlay(att, attName);
-        });
+
+    // If elements equal to quantity of characters
+    if(a.length === characters.length){
+        for(i = 0; i < a.length; i++){ 
+            let att = a[i].getAttribute('data-characterID')
+            let attName = a[i].getAttribute('data-characterName')
+            a[i].addEventListener("click", function clicked(event) {
+                event.preventDefault();
+                addOverlay(att, attName);
+            });
+        }
     }
 }
 
+function elementAddMoreButton(key) {
+    let aboutMore = document.getElementsByClassName("aboutMore");
+
+    // If elements equal to quantity of characters
+    if(aboutMore.length === characters.length){
+        for(i = 0; i < aboutMore.length; i++){ 
+            let x = [];
+            let att = aboutMore[i].getAttribute('data-moreButton')
+            
+            aboutMore[i].addEventListener("click", function clicked(event) {
+                x[i] = document.getElementById("show"+att);
+                event.preventDefault();
+                x[i].classList.toggle('hide');
+            });
+        }
+    }
+}   
 /**********************************************************************
  * 
  *  elementAddEvent Function
@@ -74,9 +94,9 @@ function addOverlay(number, name){
 
     if( y.length >= 2 && x.classList.contains("overlay") || y.length < 2 ){
         x.classList.toggle("overlay");
-        registerPlayer(number, name);
-    } else {
-        console.log("Too many players selected!");
+        return registerPlayer(number, name);
+    }else{
+        return;
     }
 }
 
@@ -100,16 +120,17 @@ function registerPlayer(number, name){
             if( inuse >= 2){ player = 2; }else{ player = 1; }
             
         } else {
-            var h1 = document.createElement("h1");  
+            var h3 = document.createElement("h3");  
             var t = document.createTextNode("Player" + player);  
-            h1.appendChild(t);       
-            x.appendChild(h1); 
+            h3.appendChild(t);       
+            h3.classList.add("text-center", "py-2");
+            x.appendChild(h3); 
             sessionStorage.setItem('player'+player, number);
             sessionStorage.setItem('player'+player+'Name', name);
             player++;
             if( inuse < 2 ){ inuse++; }
             if( inuse == 2){
-                addPlayButton(); }
+                return addPlayButton(); }
         }
         
 
@@ -155,6 +176,8 @@ function addPlayButton(){
     showHide(element);
 }
 
+
+
 /**********************************************************************
  * 
  *  htmlCharacter Function
@@ -168,7 +191,7 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
     culture ? culture = '<span class="characterTitle">Culture</span> <span class="characterAbout"> ' + culture + '</span>' : culture = '';
 
     houseCOA ? houseCOA = '<span class="characterTitle">Coat of Arms</span> <span class="characterAbout"> ' + houseCOA + '</span>' : houseCOA = ''; 
-    houseName ? houseName = '<h6 class="characterHouse">' + houseName + '</h6> ' : houseName = ''; 
+    houseName ? houseName = '<h4 class="characterHouse">' + houseName + '</h4> ' : houseName = ''; 
     houseRegion ? houseRegion = '<span class="characterTitle">Region </span> <span class="characterAbout"> ' + houseRegion + '</span> ' : houseRegion = ''; 
     houseWords ? houseWords = '<h4 style="padding-top: 25px;">' + houseWords + '</h4>' : houseWords = ''; 
     
@@ -182,7 +205,8 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
         <h2 class="card-title text-center">` + name + `</h2>
     </div>
         <img class="card-img-top mx-auto mt-4 mb-2" src="_img/`+ key + `.png" alt="Card image" style="max-height: 150px; max-width: 150px;">
-    <div class="card-body">
+        <button class="btn btn-secondary aboutMore" data-moreButton="`+ key + `">More</button>
+    <div class="card-body hide" id="show`+ key + `">
         
         <hr class="hr">
         `+ houseWords + `
@@ -195,6 +219,7 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
         ` + culture + `
         </small>
         </p>
+        <hr class="hr">
         `+ houseName + `
         <p class="card-text text-left">
         <small>
@@ -203,16 +228,14 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
         </small>
         </p>
         
-        
     </div>
-    <div class="card-footer">
-        <a href="#" class="btn btn-danger link w-100 clickToChoose" data-characterID="`+ key + `" data-characterName="`+ name + `">Choose</a>
-    </div> <!-- footer -->
+
+        <button class="btn btn-primary link w-100 clickToChoose" data-characterID="`+ key + `" data-characterName="`+ name + `">Choose</button>
+
     </div> <!-- card -->
     </div> <!-- overlay -->
     </div> <!-- col -->
     `;
-    
 }
 
 // Print out given characters, from characters array.

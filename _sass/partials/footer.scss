@@ -5,7 +5,7 @@
     height: $footerHeight - 10;
     line-height: $footerHeight;
     background-color: $color2;
-    color: $darkGray;
+    color: $btnPrimary;
     font-weight: bold;
     
     &__copy {
@@ -19,13 +19,13 @@
     }
 
     &__link {
-        color: $darkGray !important;
+        color: $btnPrimary !important;
 
         &:active {
-            color: $darkGray !important;
+            color: $btnPrimary !important;
         }
         &:visisted {
-            color: $darkGray !important;
+            color: $btnPrimary !important;
         }
         &:hover {
             color: $color3 !important;
