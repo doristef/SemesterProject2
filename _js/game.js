@@ -3,62 +3,56 @@
  *  VARIABLES FOR THE GAME
  * 
  **************************************************************/
-/* COLORS 
-#849baa - Muted Green/Blue
-#435274 - Muted Dark Blue
-*/
+
  /* START THE CANVAS - ADD HEIGHT / WIDTH */
 const stage = new createjs.Stage("testCanvas");
+createjs.Ticker.addEventListener("tick", stage);
+
+// Set the width and height of the canvas
+stage.width = 800;
+stage.height = 800;
+
+// Font Faces & Sizes 
 const fontFace = 'Cinzel Decorative';
 const fontFaceNumbers = 'Cinzel';
 const fontSizeButton = '22px';
 const fontSizeMessage = '24px';
 const fontSizeNumbers = '24px';
 
+// Message / Number Colours 
 const messageColor = '#fff';
 const numberColor = '#fff';
 
-// Set the width and height of the canvas
-stage.width = 800;
-stage.height = 800;
-
-// Set the ticker to 60fps
-createjs.Ticker.setFPS(60);
-createjs.Ticker.addEventListener("tick", stage);
-
-/* DICE VARIABLES - OLD BUTTON
-var throwDices = document.getElementById('throw')
-throwDices.addEventListener("click", throwDice);  */
-
-/* CREATE BOARD VARIABLES */
+// Board Variables
 const size = 70;
 const spacing = 70;
 const total = 29; // Starts from 0 = 30
 var space = [];
 
-/* BOARD LAYOUT */
+// Board Layout (Top-Horizontal - Right-Vertical - Bottom-Horizontal - Left_Vertical)
 const layout = [8, 15, 23, 30];
+// Start X & Y
 var x = 15;
 var y = 100;
 
-/* PLAYER VARIABLES */
+// Player Variables
 var playerX = 0, playerY = 0, playerDice =[0,0];
-let doubles = 0;
-var player = [{character : "", name : "Player 1", num : '1', color : "#febc2c", x : x + 25, y : y + 13, dice : 0, marginX : 12, marginY : 13}, 
-                {character : "", name : "Player 2", num : '2', color : "#2badff", x : x + 25, y : y + 7, dice : 0, marginX : 17, marginY : 7}];
-
 var playerTurn = 0;
+let doubles = 0;
 
+var player = [
+            {character : "", name : "Player 1", num : '1', color : "#febc2c", x : -100, y : -100, dice : 0, marginX : 12, marginY : 13}, 
+            {character : "", name : "Player 2", num : '2', color : "#2badff", x : -100, y : -100, dice : 0, marginX : 17, marginY : 7}
+        ];
+
+// Check Session Storage if Players have beem chosen
 if( sessionStorage.getItem('player1') && sessionStorage.getItem('player2')){
     player[0].number = sessionStorage.getItem('player1');
     player[1].number = sessionStorage.getItem('player2')
     player[0].character = sessionStorage.getItem('player1Name');
     player[1].character = sessionStorage.getItem('player2Name');
-    /*
-    sessionStorage.removeItem('player1');
-    sessionStorage.removeItem('player2');
-    */
 
+    // Add Player1 to the screen
     document.getElementById('player1').innerHTML += `
     <div class="card text-center">
     <div class="card-body">
@@ -71,6 +65,7 @@ if( sessionStorage.getItem('player1') && sessionStorage.getItem('player2')){
     </div> <!-- card -->
     `;
 
+    // Add Player2 to the screen
     document.getElementById('player2').innerHTML += `
     <div class="card text-center">
     <div class="card-body">
@@ -82,35 +77,32 @@ if( sessionStorage.getItem('player1') && sessionStorage.getItem('player2')){
     `;
 
 
-/* ON GAME START - Call Functions */
-createBoard(x,y,total,size);
-throwDiceButton(player[playerTurn]);
-startCharacter(x,y);
+/**************************************************************
+ * 
+ *  On Start Function - Create the board and display dice button
+ * 
+ **************************************************************/
+(function onStart(){
+    return createBoard(x,y,total,size),
+            throwDiceButton(player[playerTurn]);
+})();
+
 
 /**************************************************************
  * 
  *  FUNCTIONS FOR CANVAS
  * 
  **************************************************************/
-function clearStageNoMove(){
+
+function clearStage(dice, andMove = false){
     stage.removeAllChildren();
     refreshBoard();
-    startCharacter();
 
-    return stage.update();
-}
-function clearStage(dice){
-    stage.removeAllChildren();
-    refreshBoard();
-    moveCharacter(dice, playerTurn);
-
-    return stage.update();
-}
-
-function clearStageMove(dice){
-    stage.removeAllChildren();
-    refreshBoard();
-    showDice(dice);
+    if(andMove){
+        moveCharacter(dice, playerTurn);
+    }else{
+        showDice(dice);
+    }
 
     return stage.update();
 }
@@ -121,50 +113,55 @@ function clearStageMove(dice){
  * 
  **************************************************************/
 
+// Create and show the Dice Button
+function throwDiceButton(player, disable = false){
 
-function throwDiceButton(player){
+        let buttonIMG = new Image();
+        buttonIMG.src = '_assets/button.png';
+        buttonIMG.crossOrigin = "Anonymous";
 
-    let buttonIMG = new Image();
-    buttonIMG.src = '_assets/button.png';
-    buttonIMG.crossOrigin = "Anonymous";
+        let button = new createjs.Bitmap(buttonIMG);
+        button.scaleX = 0.75;
+        button.scaleY = 0.75;
+        button.stroke
+        button.x = (stage.width / 2) - 112;
+        button.y = (stage.height / 2) - 200;
 
-    let button = new createjs.Bitmap(buttonIMG);
-    button.scaleX = 0.75;
-    button.scaleY = 0.75;
-    button.stroke
-    button.x = (stage.width / 2) - 112;
-    button.y = (stage.height / 2) - 200;
 
-    // Add a line under in player color.
-    createRoundRectangle(player.color, 225, button.x, (button.y + 90), 4, 10);
+        // Add a line under in player color.
+        createRoundRectangle(player.color, 225, button.x, (button.y + 90), 4, 10);
 
-    // Add a text on top of the button with player number.
-    let diceText = player.name + "\n Throw Dice!";
-    let buttonText = new createjs.Text(diceText, "bold " + fontSizeButton + " " + fontFace, "#ffffff");
-    buttonText.x = button.x + 112;
-    buttonText.y = button.y + 30;
-    buttonText.textBaseline = "middle";
-    buttonText.textAlign = "center";
-    buttonText.lineWidth = 200;
-    
-    if( player.dice == (1+total) ){
-        button.removeEventListener("click");
-    }else{ 
-        button.addEventListener("click", throwDice);    
+        // Add a text on top of the button with player number.
+        let diceText = player.name + "\n Throw Dice!";
+        let buttonText = new createjs.Text(diceText, "bold " + fontSizeButton + " " + fontFace, "#ffffff");
+        buttonText.x = button.x + 112;
+        buttonText.y = button.y + 30;
+        buttonText.textBaseline = "middle";
+        buttonText.textAlign = "center";
+        buttonText.lineWidth = 200;
+        
+        if(disable){
+            button.removeEventListener("click");
+        }else if( player.dice == (1+total) ){
+            button.removeEventListener("click");
+        }else{
+            button.addEventListener("click", throwDice); 
+        }
+
         stage.addChild(button);
         stage.addChild(buttonText); 
-    }
 
-    return stage.update();
+        return stage.update();
 }
 
+// Throw the dice
 function throwDice(){
     let dice = randomDice();
 
     // Show dice if player is not finished
     if( player[playerTurn].dice < (1+total) && !(player[playerTurn].dice == (1+total)) ){
         // Clear the stage, before we return the showDice function
-        clearStage(dice);
+        clearStage(dice, true);
         throwDiceButton(player[playerTurn]);
 
         // Return showDice function, with the dice
@@ -173,10 +170,11 @@ function throwDice(){
     // Remove dice image and disable dice if player is finished
     else {
         // If the player has reached finished, don't show dice
-        return clearStage(dice);
+        return clearStage(dice, true);
     }
 }
 
+// Create a random number for dice
 function randomDice(){
     // Get a random number between 1-6
     let dice = Math.floor(Math.random() * (7 - 1) + 1);
@@ -184,6 +182,7 @@ function randomDice(){
     return dice;
 }
 
+// Show the dice on the board 
 function showDice(dice){
     // Return IMG tag with the right dice number
     if(dice){
@@ -199,10 +198,6 @@ function showDice(dice){
 
 }
 
-function removeDice(){
-    return stage.removeChild(bitmap);
-}
-
 /**************************************************************
  * 
  *  FUNCTIONS FOR CREATING SHAPES / IMAGES
@@ -216,15 +211,6 @@ function createRoundRectangle(color, width, xx, yy, radius = 10, height = width)
     roundRect.graphics.endFill();
 
     return stage.addChild(roundRect);
-}
-
-function createRectangle(color, width, xx, yy, height = width){
-    let rect = new createjs.Shape();
-
-    rect.graphics.beginFill(color).drawRect(xx, yy, width, height);
-    rect.graphics.endFill();
-
-    return stage.addChild(rect);
 }
 
 function createSpace(type, xx, yy){
@@ -250,6 +236,7 @@ function createSpace(type, xx, yy){
  * 
  **************************************************************/
 
+// Shuffle Array -> StackOverflow.com -> Durstenfeld Shuffle
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -258,15 +245,16 @@ function shuffleArray(array) {
     return array;
 }
 
+// Add the random traps to the board
 function addRandomTraps(){
-
+    // Create the random traps
     var randomTrap = [
-        { alert : -1, message : 'You are bitten by a snake! <br> Go back ' },
-        { alert : -3, message : 'Winter is Here! <br> Go back '  },
-        { alert : -8, message : 'Shame! Shame! Shame! <br> You take the walk of shame! <br> Go Back '  },
-        { alert : -6, message : 'A dragon in your path... <br> Retreat! <br> Go back '  },
-        { alert : -2, message : 'Ned Stark is beheaded by King Joffrey´s executioner! <br> You go back to watch! <br> Go Back'  }
-    ];
+        { trap : -1, message : 'You are bitten by a snake! <br> Go back ' },
+        { trap : -3, message : 'Winter is Here! <br> Go back '  },
+        { trap : -8, message : 'Shame! Shame! Shame! <br> You take the walk of shame! <br> Go Back '  },
+        { trap : -6, message : 'A dragon in your path... <br> Retreat! <br> Go back '  },
+        { trap : -2, message : 'Ned Stark is beheaded by King Joffrey´s executioner! <br> You go back to watch! <br> Go Back'  }
+];
     shuffleArray(randomTrap);
     let isItUsed = [];
     let randomTrapNumber;
@@ -274,13 +262,16 @@ function addRandomTraps(){
     for(var i = 0; i < 5; i++){
         randomTrapNumber = Math.floor(Math.random() * (27 - 1) + 3);
         
-        if( isItUsed.includes(randomTrapNumber) ){
+        // Check if the space has been used for a trap
+        if( isItUsed.includes(randomTrapNumber) ){ 
             randomTrapNumber = Math.floor(Math.random() * (27 - 1) + 3);
             i--;
         }
+        // Check if the spaces next to the chosen one have traps
         else if( 'trap' in space[randomTrapNumber-1]  || 'trap' in space[randomTrapNumber+1] ){
             randomTrapNumber = Math.floor(Math.random() * (27 - 1) + 3);
             i--;
+        // If the space and those next to it dont contain trap, add it!
         }else{
             isItUsed[i] = randomTrapNumber;
             space[randomTrapNumber].trap = randomTrap[i];
@@ -354,11 +345,11 @@ function moveCharacter(dice){
                 }
 
                 if('trap' in space[player[playerTurn].dice-1]) {
-                    let newDice = player[playerTurn].dice + space[player[playerTurn].dice-1].trap.alert;
+                    let newDice = player[playerTurn].dice + space[player[playerTurn].dice-1].trap.trap;
         
                     if( newDice <= 0){ newDice = 1; }else if( newDice >= 30){ newDice = 30;}
         
-                    let trapMessage = [space[player[playerTurn].dice-1].trap.message, space[player[playerTurn].dice-1].trap.alert, player[playerTurn].dice, newDice];
+                    let trapMessage = [space[player[playerTurn].dice-1].trap.message, space[player[playerTurn].dice-1].trap.trap, player[playerTurn].dice, newDice];
         
                     player[playerTurn].dice = newDice;
                     player[playerTurn].x = space[(player[playerTurn].dice-1)].x + player[playerTurn].marginX;
@@ -369,7 +360,7 @@ function moveCharacter(dice){
     
                         if ( player[playerTurn].dice >= (1+total) ){
     
-                            clearStageMove(dice);
+                            clearStage(dice);
                             startCharacter();
         
                             sessionStorage.clear();
@@ -381,7 +372,7 @@ function moveCharacter(dice){
                     let diceMessage = player[playerTurn].name + ' got tangled in a trap! \n And gets no extra round!';
                     playerTurn = playerTurn == 1 ? playerTurn = 0 : playerTurn = 1;
                         
-                        return clearStageMove(), showDice(dice), startCharacter(), addText(diceMessage, messageColor,0,30), playerTurn, throwDiceButton(player[playerTurn]), doubles = 0;
+                        return clearStage(), showDice(dice), startCharacter(), addText(diceMessage, messageColor,0,30), playerTurn, throwDiceButton(player[playerTurn]), doubles = 0;
   
                 }else{
                 return startCharacter(), stage.update(), playerTurn, throwDiceButton(player[playerTurn]), addText(diceMessage, messageColor,0,30);
@@ -389,11 +380,11 @@ function moveCharacter(dice){
             }
             
             else if('trap' in space[player[playerTurn].dice-1]) {
-                let newDice = player[playerTurn].dice + space[player[playerTurn].dice-1].trap.alert;
+                let newDice = player[playerTurn].dice + space[player[playerTurn].dice-1].trap.trap;
     
                 if( newDice <= 0){ newDice = 1; }else if( newDice >= 30){ newDice = 30;}
     
-                let trapMessage = [space[player[playerTurn].dice-1].trap.message, space[player[playerTurn].dice-1].trap.alert, player[playerTurn].dice, newDice];
+                let trapMessage = [space[player[playerTurn].dice-1].trap.message, space[player[playerTurn].dice-1].trap.trap, player[playerTurn].dice, newDice];
     
                 player[playerTurn].dice = newDice;
                 player[playerTurn].x = space[(player[playerTurn].dice-1)].x + player[playerTurn].marginX;
@@ -404,7 +395,7 @@ function moveCharacter(dice){
 
                     if ( player[playerTurn].dice >= (1+total) ){
 
-                        clearStageMove(dice);
+                        clearStage(dice);
                         startCharacter();
     
                         sessionStorage.clear();
@@ -414,7 +405,7 @@ function moveCharacter(dice){
                     }
                 
                 playerTurn = playerTurn == 1 ? playerTurn = 0 : playerTurn = 1;
-                return clearStageMove(), showDice(dice), startCharacter(), playerTurn, throwDiceButton(player[playerTurn]);
+                return clearStage(), showDice(dice), startCharacter(), playerTurn, throwDiceButton(player[playerTurn]);
             }else{
                 playerTurn = playerTurn == 1 ? playerTurn = 0 : playerTurn = 1;
                 return startCharacter(), stage.update(), playerTurn, doubles = 0, throwDiceButton(player[playerTurn]);
@@ -423,11 +414,11 @@ function moveCharacter(dice){
         }
 
         setTimeout(function() {
- 
+
             if( dice === 6 && doubles >= 1 ){
                 let diceMessage = player[playerTurn].name + ' luck bit her in the ass! \n There will be no movement at all this round!';
                 playerTurn = playerTurn == 1 ? playerTurn = 0 : playerTurn = 1;
-                return clearStageMove(), addText(diceMessage, messageColor, 0, 30), startCharacter(), showDice(dice), playerTurn,throwDiceButton(player[playerTurn]), doubles = 0;
+                return clearStage(), addText(diceMessage, messageColor, 0, 30), startCharacter(), showDice(dice), playerTurn,throwDiceButton(player[playerTurn]), doubles = 0;
             }
             if( player[playerTurn].dice < (1+total) ){
                 player[playerTurn].dice++
@@ -440,7 +431,7 @@ function moveCharacter(dice){
                     player[playerTurn].x = space[total].x + player[playerTurn].marginX;
                     player[playerTurn].y = space[total].y + player[playerTurn].marginY;
 
-                    clearStageMove(dice);
+                    clearStage(dice);
                     startCharacter();
 
                     sessionStorage.clear();
@@ -450,8 +441,8 @@ function moveCharacter(dice){
     
                 }
                 
-                clearStageMove(dice);
-                throwDiceButton(player[playerTurn]), 
+                clearStage(dice);
+                throwDiceButton(player[playerTurn], true), 
                 startCharacter();
 
             next();
