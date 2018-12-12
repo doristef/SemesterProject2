@@ -74,15 +74,21 @@ a:hover {
     background-color: #b17f00 !important;
     color: #ffffff !important; }
   .btn-primary-bigtext {
-    font-size: 3.125rem;
+    font-size: 3rem;
     font-family: "Cinzel Decorative", cursive;
     font-weight: 900 !important;
     color: #606468 !important; }
+    @media screen and (max-width: 767px) {
+      .btn-primary-bigtext {
+        font-size: 1.625rem; } }
   .btn-primary-medtext {
-    font-size: 1.625rem;
+    font-size: 2.1875rem;
     font-family: "Cinzel Decorative", cursive;
     font-weight: 700 !important;
     color: #606468 !important; }
+    @media screen and (max-width: 767px) {
+      .btn-primary-medtext {
+        font-size: 1.5rem; } }
   .btn-primary-1 {
     background-color: #febc2c !important; }
     .btn-primary-1:hover {
@@ -174,8 +180,11 @@ a:hover {
         }
 ****** / OVERFLOW SEARCH ***********/
 .imageOverlayShield {
-  max-width: 30%;
-  width: 400px; }
+  width: 400px;
+  max-width: 80%; }
+  @media screen and (max-width: 767px) {
+    .imageOverlayShield {
+      width: 200px; } }
 
 .hide {
   display: none; }

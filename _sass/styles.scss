@@ -12,8 +12,9 @@
         }
 ****** / OVERFLOW SEARCH ***********/
 .imageOverlayShield {
-    max-width: 30%;
+    @media screen and (max-width: $smallScreen) { width: 200px; }
     width: 400px;
+    max-width: 80%;
 }
 
 .hide { display: none; }
