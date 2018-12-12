@@ -56,49 +56,6 @@ a:active {
 a:hover {
   color: #ffc531; }
 
-.btn-secondary {
-  color: #ffffff !important;
-  background-color: #646a71 !important;
-  border: 0 !important;
-  border-radius: 0 !important; }
-.btn-secondary:hover {
-  border: 0 !important;
-  background-color: #474b50 !important;
-  border-radius: 0 !important; }
-.btn-primary {
-  color: #606468 !important;
-  background-color: #ffc531 !important;
-  border: 0 !important; }
-  .btn-primary:hover {
-    border: 0 !important;
-    background-color: #b17f00 !important;
-    color: #ffffff !important; }
-  .btn-primary-bigtext {
-    font-size: 3rem;
-    font-family: "Cinzel Decorative", cursive;
-    font-weight: 900 !important;
-    color: #606468 !important; }
-    @media screen and (max-width: 767px) {
-      .btn-primary-bigtext {
-        font-size: 1.625rem; } }
-  .btn-primary-medtext {
-    font-size: 2.1875rem;
-    font-family: "Cinzel Decorative", cursive;
-    font-weight: 700 !important;
-    color: #606468 !important; }
-    @media screen and (max-width: 767px) {
-      .btn-primary-medtext {
-        font-size: 1.5rem; } }
-  .btn-primary-1 {
-    background-color: #febc2c !important; }
-    .btn-primary-1:hover {
-      background-color: #aa7501 !important; }
-  .btn-primary-2 {
-    background-color: #2badff !important;
-    color: #ffffff !important; }
-    .btn-primary-2:hover {
-      background-color: #0069ab !important; }
-
 /* FOOTER */
 .footer {
   width: 100%;
@@ -179,29 +136,83 @@ a:hover {
             opacity: 1 !important; visibility: visible !important;
         }
 ****** / OVERFLOW SEARCH ***********/
+#testCanvas {
+  margin: 0 auto 100px auto;
+  align-self: auto; }
+
+.background--lines {
+  background: repeating-linear-gradient(90deg, #494949, #494949 10px, #4f4f4f 10px, #4f4f4f 20px); }
+.background--lines__blue {
+  background: repeating-linear-gradient(45deg, #53585e, #53585e 10px, #51555b 10px, #4e5359 20px); }
+.background--dark {
+  background: #4f4f4f; }
+
+.border--sides {
+  border-left: 1px solid #53585e;
+  border-right: 1px solid #53585e;
+  outline: 2px solid #665c5a;
+  box-shadow: 0 0 0 4px #7f7f7f; }
+.border--sides:before {
+  border-left: 1px solid #665c5a;
+  border-right: 1px solid #665c5a; }
+.border--sides:after {
+  border-left: 1px solid #e9e9e9;
+  border-right: 1px solid #e9e9e9; }
+
+.btn-secondary {
+  color: #ffffff !important;
+  background-color: #646a71 !important;
+  border: 0 !important;
+  border-radius: 0 !important; }
+.btn-secondary:hover {
+  border: 0 !important;
+  background-color: #474b50 !important;
+  border-radius: 0 !important; }
+.btn-primary {
+  color: #606468 !important;
+  background-color: #ffc531 !important;
+  border: 0 !important; }
+  .btn-primary:hover {
+    border: 0 !important;
+    background-color: #b17f00 !important;
+    color: #ffffff !important; }
+  .btn-primary-bigtext {
+    font-size: 3rem;
+    font-family: "Cinzel Decorative", cursive;
+    font-weight: 900 !important;
+    color: #606468 !important; }
+    @media screen and (max-width: 767px) {
+      .btn-primary-bigtext {
+        font-size: 1.625rem; } }
+  .btn-primary-medtext {
+    font-size: 2.1875rem;
+    font-family: "Cinzel Decorative", cursive;
+    font-weight: 700 !important;
+    color: #606468 !important; }
+    @media screen and (max-width: 767px) {
+      .btn-primary-medtext {
+        font-size: 1.5rem; } }
+  .btn-primary-1 {
+    background-color: #febc2c !important; }
+    .btn-primary-1:hover {
+      background-color: #aa7501 !important; }
+  .btn-primary-2 {
+    background-color: #2badff !important;
+    color: #ffffff !important; }
+    .btn-primary-2:hover {
+      background-color: #0069ab !important; }
+
+@media screen and (max-width: 767px) {
+  .img-rules {
+    display: block !important;
+    float: none !important; } }
+
 .imageOverlayShield {
   width: 400px;
   max-width: 80%; }
   @media screen and (max-width: 767px) {
     .imageOverlayShield {
       width: 200px; } }
-
-.hide {
-  display: none; }
-
-.playerVS {
-  color: #ffffff !important; }
-
-#testCanvas {
-  margin: 0 auto 100px auto;
-  align-self: auto; }
-
-.overlay {
-  content: ' ';
-  z-index: 99;
-  opacity: 0.5;
-  background: rgba(39, 42, 43, 0.8);
-  transition: opacity 200ms ease-in-out; }
 
 .playGame, .trapOverlay {
   height: 100%;
@@ -229,9 +240,6 @@ a:hover {
   opacity: 0.5;
   background: rgba(39, 42, 43, 0.8);
   transition: opacity 200ms ease-in-out; }
-
-.playerChosen {
-  border: 5px solid #53585e; }
 
 .characterTitle {
   font-weight: bold;
@@ -268,76 +276,5 @@ a:hover {
     text-decoration: underline; }
   .card a:hover {
     color: #ffc531 !important; }
-
-@media screen and (max-width: 767px) {
-  .img-rules {
-    display: block !important;
-    float: none !important; } }
-
-.hide--big {
-  display: none !important; }
-  @media screen and (max-width: 767px) {
-    .hide--big {
-      display: block !important; } }
-
-.row .fixed {
-  width: 98%;
-  margin: 0 auto; }
-
-.background--lines {
-  background: repeating-linear-gradient(90deg, #494949, #494949 10px, #4f4f4f 10px, #4f4f4f 20px); }
-.background--lines__blue {
-  background: repeating-linear-gradient(45deg, #53585e, #53585e 10px, #51555b 10px, #4e5359 20px); }
-.background--paper {
-  background: #4f4f4f; }
-
-.divider--lines {
-  display: block;
-  content: ' ';
-  height: 0.5rem;
-  margin: 1.25rem 0; }
-  .divider--lines__orange {
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    background: linear-gradient(to bottom, #FF6B4C, #ffaa99); }
-  .divider--lines__green {
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    background: linear-gradient(to bottom, #FF6B4C, #ffeae5); }
-  @media screen and (max-width: 767px) {
-    .divider--lines {
-      margin: 2rem 0; } }
-
-.border--sides {
-  border-left: 1px solid #53585e;
-  border-right: 1px solid #53585e;
-  outline: 2px solid #665c5a;
-  box-shadow: 0 0 0 4px #7f7f7f; }
-.border--sides:before {
-  border-left: 1px solid #665c5a;
-  border-right: 1px solid #665c5a; }
-.border--sides:after {
-  border-left: 1px solid #e9e9e9;
-  border-right: 1px solid #e9e9e9; }
-.border--bottom {
-  border-bottom: 1px solid #232528; }
-.border--top {
-  border-top: 1px solid #232528; }
-
-.margin__top {
-  margin-top: 15px; }
-  .margin__top--5 {
-    margin-top: 20px; }
-.margin__bottom {
-  margin-bottom: 25px; }
-
-.padding__top {
-  padding-top: 10px; }
-  .padding__top--5 {
-    padding-top: 15px; }
-.padding__bottom {
-  padding-bottom: 15px; }
 
 /*# sourceMappingURL=styles.css.map */

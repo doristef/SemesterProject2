@@ -11,31 +11,126 @@
             opacity: 1 !important; visibility: visible !important;
         }
 ****** / OVERFLOW SEARCH ***********/
+
+//** CANVAS **//
+#testCanvas {
+    margin: 0 auto 100px auto;
+    align-self: auto;
+}
+
+//** BACKGROUNDS **//
+.background {
+    &--lines {
+        background: repeating-linear-gradient(
+			90deg,
+			$darkGray,
+			$darkGray 10px,
+            $darkGray2 10px,
+            $darkGray2 20px
+            );
+    }
+    &--lines__blue {
+        background: repeating-linear-gradient(
+			45deg,
+			$color2,
+			$color2 10px,
+            darken($color2, 1%) 10px,
+            darken($color2, 2%) 20px
+            );
+    }
+    &--dark {
+        background: $darkGray2;
+    }
+}
+
+//** BORDERS **//
+.border {
+    &--sides {
+        border-left: 1px solid $color2;
+        border-right: 1px solid $color2;
+        outline: 2px solid $gray2;
+        box-shadow: 0 0 0 4px $gray3;
+    }
+    &--sides:before {
+        border-left: 1px solid $gray2;
+        border-right: 1px solid $gray2;
+    }
+    &--sides:after {
+        border-left: 1px solid $gray;
+        border-right: 1px solid $gray;
+    }
+}
+
+//** BUTTONS **//
+.btn {
+    &-secondary {
+        color: $white !important;
+        background-color: lighten($btnSecondary, 7%) !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+
+    }
+    &-secondary:hover {
+        border: 0 !important;
+        background-color: darken($btnSecondary, 5%) !important;
+        border-radius: 0 !important;
+    }
+
+    &-primary {
+        color: $btnPrimaryColor !important;
+        background-color: $btnPrimary !important;
+        border: 0 !important;
+
+        &:hover {
+            border: 0 !important;
+            background-color: darken($btnPrimary, 25%) !important;
+            color: $white !important;
+        }
+
+        &-bigtext {
+            @include fontRem(48px);
+            @media screen and (max-width: $smallScreen) { @include fontRem(26px); }
+            font-family: $btnFont;
+            font-weight: 900 !important;
+            color: $btnPrimaryColor !important;
+        }
+        &-medtext {
+            @include fontRem(35px);
+            @media screen and (max-width: $smallScreen) { @include fontRem(24px); }
+            font-family: $btnFont;
+            font-weight: 700 !important;
+            color: $btnPrimaryColor !important;
+        }
+        &-1 {
+            background-color: $player1 !important;
+            &:hover{
+                background-color: darken($player1, 25%) !important;
+            }
+        }
+        &-2 {
+            background-color: $player2 !important;
+            color: $white !important;
+            &:hover {
+                background-color: darken($player2, 25%) !important;
+            }
+        }
+    }
+
+}
+
+//** STYLES FOR RULES.html **//
+.img-rules {
+    @media screen and (max-width: $smallScreen) { display: block !important; float: none !important; }
+}
+
+//** STYLES FOR PLAY.html **//
+
 .imageOverlayShield {
     @media screen and (max-width: $smallScreen) { width: 200px; }
     width: 400px;
     max-width: 80%;
 }
 
-.hide { display: none; }
-
-.playerVS {
-    color: $white !important;
-}
-#testCanvas {
-    margin: 0 auto 100px auto;
-    align-self: auto;
-}
-//** CARDS **//
-
-.overlay {
-    content: ' ';
-    z-index: 99;
-    opacity: 0.5;
-    background: rgba(39, 42, 43, 0.8);
-    transition: opacity 200ms ease-in-out;
-}
-//** PLAY GAME **//
 .playGame, .trapOverlay { 
     height: 100%;
     width: 100%;
@@ -56,7 +151,10 @@
     text-align: center;
     margin-top: 30px;
 }
-//** CARDS **//
+
+//** STYLES FOR CHARACTER.html **//
+// cards
+
 .overlay {
     content: ' ';
     z-index: 99;
@@ -65,9 +163,6 @@
     transition: opacity 200ms ease-in-out;
 }
 
-.playerChosen {
-    border: 5px solid $color2;
-}
 .characterTitle {
     font-weight: bold;
     padding-right: 15px;
@@ -113,115 +208,5 @@
     
     & a:hover {
         color: $btnPrimary !important;
-    }
-}
-
-.img-rules {
-    @media screen and (max-width: $smallScreen) { display: block !important; float: none !important; }
-}
-//** Hide element on BIG screen **//
-.hide--big {
-    @media screen and (max-width: $smallScreen) { display: block !important; }
-    display: none !important;
-}
-
-//** ROW FIX... overflow out of bounds... **//
-.row .fixed{  width: 98%; margin: 0 auto;}
-
-//** BG **//
-.background {
-    &--lines {
-        background: repeating-linear-gradient(
-			90deg,
-			$darkGray,
-			$darkGray 10px,
-            $darkGray2 10px,
-            $darkGray2 20px
-            );
-    }
-    &--lines__blue {
-        background: repeating-linear-gradient(
-			45deg,
-			$color2,
-			$color2 10px,
-            darken($color2, 1%) 10px,
-            darken($color2, 2%) 20px
-            );
-    }
-    &--paper {
-        background: $darkGray2;
-    }
-}
-
-
-.divider {
-
-    &--lines {
-    display: block;
-    content: ' ';
-    height: 0.5rem;
-    margin: 1.25rem 0;
-
-        &__orange {
-            @include border-radius(5px);
-            background: linear-gradient(to bottom, $color3, lighten($color3, 15%) );
-        }
-        &__green {
-            @include border-radius(5px);
-            background: linear-gradient(to bottom, $color3, lighten($color3, 30%) );
-        }
-    @media screen and (max-width: $smallScreen) { margin: 2rem 0; } 
-    }
-
-}
-
-//** MARGIN, PADDING **//
-.border {
-
-    &--sides {
-        border-left: 1px solid $color2;
-        border-right: 1px solid $color2;
-        outline: 2px solid $gray2;
-        box-shadow: 0 0 0 4px $gray3;
-    }
-    &--sides:before {
-        border-left: 1px solid $gray2;
-        border-right: 1px solid $gray2;
-    }
-    &--sides:after {
-        border-left: 1px solid $gray;
-        border-right: 1px solid $gray;
-    }
-
-    &--bottom {
-        border-bottom: 1px solid darken($color2, 20%);
-    }
-
-    &--top {
-        border-top: 1px solid darken($color2, 20%);
-    }
-}
-.margin{
-    &__top { 
-        margin-top: $topMargin; 
-        
-        &--5 { margin-top: $topMargin + 5; }
-    }
-    &__bottom { 
-        margin-bottom: $bottomMargin; 
-    }
-}
-
-.padding {
-    &__top { 
-       padding-top: $topPad; 
-        
-        &--5 {
-            padding-top: $topPad + 5;
-        }
-    }
-    
-    &__bottom { 
-        padding-bottom: $bottomPad; 
     }
 }

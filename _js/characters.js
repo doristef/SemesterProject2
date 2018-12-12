@@ -1,9 +1,10 @@
-// API :: https://anapioficeandfire.com/ //
+ /***************************************************
+ * CHARACTER DISPLAY / CHOOSE                       *
+ ****************************************************/
 
-/***************************************************
- * Character Variables                             *
- ***************************************************/
+// VARIABLES 
 const url = 'https://www.anapioficeandfire.com/api/characters/';
+// API :: https://anapioficeandfire.com/ //
 const characters = [583, 271, 529, 238, 1052, 148, 1022, 1560, 957, 565]; // 10 characters by number
 const htmlID = 'cardID';
 var urlChar = '';
@@ -156,10 +157,7 @@ function registerPlayer(number, name){
             if( inuse == 2){
                 return showHide('playGame'); }
         }
-        
-
 }
-
 
  /**************************************************************
   * Function showHide()
@@ -198,7 +196,6 @@ goPlay.addEventListener('click', function (){
     window.location="play.html";
  });
 
-
  /**************************************************************
   * Function htmlCharacter()
   * 
@@ -208,7 +205,6 @@ goPlay.addEventListener('click', function (){
   * DOM Element
   * 
   *************************************************************/
-
 function htmlCharacter(key, name, title, gender, born, culture, died, cardID, houseName, houseRegion, houseCOA, houseWords) {
 
     // Check if variables have any data attached, if they do add some formatting.
@@ -252,11 +248,8 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
         `+ houseCOA + `
         </small>
         </p>
-        
     </div>
-
         <button class="btn btn-primary link w-100 clickToChoose" data-characterID="`+ key + `" data-characterName="`+ name + `">Choose</button>
-
     </div> <!-- card -->
     </div> <!-- overlay -->
     </div> <!-- col -->

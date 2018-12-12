@@ -12,27 +12,25 @@ $btnFont : 'Cinzel Decorative', cursive;
 $navWeight : 500;
 $navStyle : none;
 
-
-//*** VARIABLES ***/
-
 //** COLORS **//
 $black : #000000;
 $white : #ffffff;
+$red : #dc1e3d;
+
 $gray : #e9e9e9;
-$gray1 : #bcbcbc;
 $gray2 : #665c5a;
 $gray3 : #7f7f7f;
-$darkGray2 : #4f4f4f;
 $darkGray : #494949;
-$skinColor : #ffebd8;
-$color1 : #2A81A5;
+$darkGray2 : #4f4f4f;
+
+$color1 : #FF6B4C;
 $color2 : #53585e;
-$color3 : #FF6B4C;
-$red : #dc1e3d;
+
 $btnPrimary : #ffc531;
 $btnPrimaryColor : #606468;
-$btnSecondary : #53585e; // #4f687d;
+$btnSecondary : #53585e;
 $cardBackground : #6f757b;
+
 $player1 : #febc2c;
 $player2 : #2badff;
 
@@ -47,15 +45,9 @@ $headings: (
 $navText : 24px;
 $bodyFontSize : 17px;
 
-//** MARGIN - PADDING **//
-$topMargin: 15px;
-$bottomMargin: 25px;
-$topPad: 10px;
-$bottomPad: 15px;
-
-
 //** SIZES **//
 $footerHeight: 120px;
 $navHeight: 65px;
+
 $smallScreen: 767px;
 $medScreen: 1024px;

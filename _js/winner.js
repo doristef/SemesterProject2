@@ -1,6 +1,6 @@
  /***************************************************
  * WINNER PAGE                                      *
- ***************************************************/
+ ****************************************************/
 
  // Check if sessionStorage
 if( sessionStorage.getItem('winner') && sessionStorage.getItem('winner-player') && sessionStorage.getItem('winner-color') ){
