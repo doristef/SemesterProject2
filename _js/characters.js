@@ -1,20 +1,26 @@
 // API :: https://anapioficeandfire.com/ //
 
-// Variables
+/***************************************************
+ * Character Variables                             *
+ ***************************************************/
 const url = 'https://www.anapioficeandfire.com/api/characters/';
-const characters = [583, 271, 529, 238, 1052, 148, 1022, 1560, 957, 565];
+const characters = [583, 271, 529, 238, 1052, 148, 1022, 1560, 957, 565]; // 10 characters by number
 const htmlID = 'cardID';
 var urlChar = '';
 var key;
 var inuse = 0;
 var player = 1;
 
-/**********************************************************************
- * 
- *  fetchPromise Function
- *  fetch data from Ice and Fire API
- *
- **********************************************************************/
+ /**************************************************************
+  * Function fetchPromise()
+  * 
+  * @param {string} urlChar, url to API
+  * @param {numbern} key
+  * 
+  * Fetch data from Ice and Fire API.
+  * Fetch inside a fetch, deliver to HTML element
+  * 
+  *************************************************************/
 function fetchPromise(urlChar, key) {
     fetch(urlChar) // urlChar given in for loop when choosing data.
     .then((resp) => resp.json()) // Response, parse JSON.
@@ -43,12 +49,12 @@ function fetchPromise(urlChar, key) {
     .catch((error) => console.error("FAILED: " + error)); 
 }
 
-/**********************************************************************
- * 
- *  elementAddEvent Function
- *  Add event listener to button on all characters.
- *
- **********************************************************************/
+ /**************************************************************
+  * Function elementAddEvent()
+  * 
+  * Add an click Event to an Element by class name
+  * 
+  *************************************************************/
 function elementAddEvent() {
     let a = document.getElementsByClassName("clickToChoose");
 
@@ -65,7 +71,14 @@ function elementAddEvent() {
     }
 }
 
-function elementAddMoreButton(key) {
+ /**************************************************************
+  * Function elementAddMoreButton()
+  * 
+  * Add an click Event to an Element by class name
+  * Add an class list toggle to that Element
+  * 
+  *************************************************************/
+function elementAddMoreButton() {
     let aboutMore = document.getElementsByClassName("aboutMore");
 
     // If elements equal to quantity of characters
@@ -81,13 +94,20 @@ function elementAddMoreButton(key) {
             });
         }
     }
-}   
-/**********************************************************************
- * 
- *  elementAddEvent Function
- *  Add event listener to button on all characters.
- *
- **********************************************************************/
+}
+
+ /**************************************************************
+  * Function addOverlay()
+  * 
+  * @param {number} number
+  * @param {string} name
+  * 
+  * Creates an overlay on clicked player, max overlay = 2
+  * Toggle class list on element
+  * 
+  * Calls registerPlayer()
+  * 
+  *************************************************************/
 function addOverlay(number, name){
     let x = document.getElementById(number);
     let y = document.getElementsByClassName("overlay");
@@ -100,12 +120,16 @@ function addOverlay(number, name){
     }
 }
 
-/**********************************************************************
- * 
- *  registerPlayer Function
- *  Register player chosen, user can only choose 2 players.
- *
- **********************************************************************/
+ /**************************************************************
+  * Function registerPlayer()
+  * 
+  * @param {number} number
+  * @param {string} name
+  * 
+  * Add text to chosen player, writes to sessionStorage
+  * Adds play button when players are chosen, 2 players
+  * 
+  *************************************************************/
 function registerPlayer(number, name){
 
     let x = document.getElementById(number);
@@ -130,18 +154,22 @@ function registerPlayer(number, name){
             player++;
             if( inuse < 2 ){ inuse++; }
             if( inuse == 2){
-                return addPlayButton(); }
+                return showHide('playGame'); }
         }
         
 
 }
 
-/**********************************************************************
- * 
- *  showHide Function
- *  Show / Hide a DOM Element
- *
- **********************************************************************/
+
+ /**************************************************************
+  * Function showHide()
+  * 
+  * @param {string} who
+  * 
+  * Gets an element, toggles display
+  * DOM Element show / hide
+  * 
+  *************************************************************/
 function showHide(who){
     let x = document.getElementById(who);
     if( x.style.display === 'none' ){
@@ -153,37 +181,34 @@ function showHide(who){
 
 /**********************************************************************
  * 
- *  asdf
  *  When user has chosen 2 players, show play button on overlay
  *
  **********************************************************************/
-let element = 'playGame';
+
 let chooseAgain = document.getElementById('chooseAgain');
 let goPlay = document.getElementById('goPlay');
 
 // Event listener on "Choose Again" button.
 chooseAgain.addEventListener('click', function (){
-    return showHide(element);
+    return showHide('playGame');
  });
 
- // Event listener on "Play Game" button.
+ // Event listener on "Play Game" button. Refresh browser to PLAY
 goPlay.addEventListener('click', function (){
     window.location="play.html";
  });
 
 
-function addPlayButton(){
-    showHide(element);
-}
+ /**************************************************************
+  * Function htmlCharacter()
+  * 
+  * @param ... Loads of strings from fetch
+  * 
+  * Add the character Card to HTML
+  * DOM Element
+  * 
+  *************************************************************/
 
-
-
-/**********************************************************************
- * 
- *  htmlCharacter Function
- *  Add the character Card to HTML
- *
- **********************************************************************/
 function htmlCharacter(key, name, title, gender, born, culture, died, cardID, houseName, houseRegion, houseCOA, houseWords) {
 
     // Check if variables have any data attached, if they do add some formatting.
@@ -238,7 +263,9 @@ function htmlCharacter(key, name, title, gender, born, culture, died, cardID, ho
     `;
 }
 
-// Print out given characters, from characters array.
+/*****************************************************
+ * Print out given characters, from characters array *
+ *****************************************************/
 for (i = 0; i <= characters.length-1; i++) {
     urlChar = 'https://www.anapioficeandfire.com/api/characters/' + characters[i];
     fetchPromise(urlChar, i);

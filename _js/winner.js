@@ -1,5 +1,9 @@
-if( sessionStorage.getItem('winner') && sessionStorage.getItem('winner-player') && sessionStorage.getItem('winner-color') ){
+ /***************************************************
+ * WINNER PAGE                                      *
+ ***************************************************/
 
+ // Check if sessionStorage
+if( sessionStorage.getItem('winner') && sessionStorage.getItem('winner-player') && sessionStorage.getItem('winner-color') ){
     document.getElementById('winner').innerHTML = `
     <div class="col-sm-12 mx-auto text-center mt-5">
         <img src="_assets/shield.png" alt="A Shield" class="imageOverlayShield mb-3">
@@ -11,9 +15,8 @@ if( sessionStorage.getItem('winner') && sessionStorage.getItem('winner-player') 
         <a href="index.html" class="btn btn-primary my-3" style="margin-top: 1rem;">Play Again?</a>
     </div>
     `;
-
+// If nothing in sessionStorage, fallback
 }else{
-
     document.getElementById('winner').innerHTML = `
         <div class="col-12 mx-auto text-center mt3">
             <h1>Can't win without playing!</h1>
