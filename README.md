@@ -4,7 +4,7 @@ A fun board game based on characters from Got.
 
 ## Semester Project 2
 
-This is my semester project for semester three in Frontend-Development at Noroff - School of Technology and Digital Media.
+This is my project for semester three in Frontend-Development at Noroff - School of Technology and Digital Media.
 
 ### Live
 
