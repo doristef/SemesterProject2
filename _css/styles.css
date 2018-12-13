@@ -3,7 +3,7 @@
 body {
   font-family: "Lato", sans-serif;
   font-weight: 300 !important;
-  font-style: none;
+  font-style: normal;
   font-size: 17px;
   color: #ffffff; }
 
@@ -74,7 +74,7 @@ a:hover {
     color: #ffc531 !important; }
     .footer__link:active {
       color: #ffc531 !important; }
-    .footer__link:visisted {
+    .footer__link:visited {
       color: #ffc531 !important; }
     .footer__link:hover {
       color: #FF6B4C !important; }
@@ -100,7 +100,7 @@ a:hover {
   font-family: "Cinzel Decorative", cursive;
   font-size: 24px;
   font-weight: 500 !important;
-  font-style: none;
+  font-style: normal;
   min-height: 65px;
   width: 100%;
   margin: 0;
